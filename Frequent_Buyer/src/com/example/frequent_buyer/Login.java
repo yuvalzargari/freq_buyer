@@ -35,16 +35,6 @@ public class Login extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
-		/* if the user details are saved(already logged in before) then
-		 * automatically login
-		 */
-    	DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-    	if(db.getRowCount() > 0)
-    	{
-			Intent businessMenu = new Intent(Login.this, BusinessMenu.class);
-			startActivity(businessMenu);
-			Login.this.finish();
-    	}
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.login_email);
@@ -124,7 +114,7 @@ public class Login extends Activity
 
 						// Clear all previous data in database
 						userFunction.logoutUser(getApplicationContext());
-						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL));                        
+						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));                        
 
 						String type = json_user.getString(KEY_TYPE);
 						if(type.equals("client"))

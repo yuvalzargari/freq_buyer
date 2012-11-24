@@ -26,6 +26,8 @@ public class Register extends Activity
 	private static String KEY_SUCCESS = "success";
 	private static String KEY_NAME = "name";
 	private static String KEY_EMAIL = "email";
+	private static String KEY_TYPE = "type";
+	
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -106,7 +108,7 @@ public class Register extends Activity
 
 						// Clear all previous data in database
 						userFunction.logoutUser(getApplicationContext());
-						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL));                        
+						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));                        
 
 						Intent businessMenu = new Intent(Register.this, OwnerMenu.class);
 						startActivity(businessMenu);

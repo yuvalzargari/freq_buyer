@@ -15,8 +15,8 @@ public class UserFunctions
 	private JSONParser jsonParser;
 
 
-	private static String loginURL = "http://freqbuyer.net84.net";
-	private static String registerURL = "http://freqbuyer.net84.net";
+	private static String loginURL = "http://eliproj1.site88.net";
+	private static String registerURL = "http://eliproj1.site88.net";
 
 	private static String login_tag = "login";
 	private static String register_tag = "register";
