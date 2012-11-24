@@ -90,13 +90,26 @@
                 android:singleLine="true" />
             <!-- Register Button -->
 
+
+            <!-- Error message -->
+
+            <TextView
+                android:id="@+id/register_error"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:textColor="#e30000"
+                android:textStyle="bold" />
+            
+            
+            <!-- Link to Login Screen -->
+
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
                 android:text="Register New Account" />
-            <!-- Link to Login Screen -->
 
             <TextView
                 android:id="@+id/link_to_login"

@@ -14,8 +14,7 @@ public class UserFunctions
 
 	private JSONParser jsonParser;
 
-	// Testing in localhost using wamp or xampp
-	// use http://10.0.2.2/ to connect to your localhost ie http://localhost/
+
 	private static String loginURL = "http://freqbuyer.net84.net";
 	private static String registerURL = "http://freqbuyer.net84.net";
 

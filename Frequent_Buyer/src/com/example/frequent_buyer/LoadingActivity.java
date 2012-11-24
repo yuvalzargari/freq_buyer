@@ -4,7 +4,6 @@ package com.example.frequent_buyer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 public class LoadingActivity extends Activity
 {
@@ -22,7 +21,7 @@ public class LoadingActivity extends Activity
 			{
 				try
 				{
-					sleep(2000);
+					sleep(1000);
 					Intent toOpen = new Intent(LoadingActivity.this, Login.class); 
 					startActivity(toOpen);
 					finish();

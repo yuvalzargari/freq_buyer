@@ -16,7 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final int DATABASE_VERSION = 1;
 
 	// Database Name
-	private static final String DATABASE_NAME = "a7326791_yoav";
+	private static final String DATABASE_NAME = "freq_buyer";
 
 	// Login table name
 	private static final String TABLE_LOGIN = "users";
@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_NAME = "name";
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_TYPE = "type";
-	
+
 	public DatabaseHandler(Context context) 
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 				+ KEY_ID + " INTEGER PRIMARY KEY,"
 				+ KEY_NAME + " TEXT,"
 				+ KEY_EMAIL + " TEXT UNIQUE,"
-				+ KEY_TYPE + " ENUM('client', 'owner')" + ")";
+				+ KEY_TYPE + " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
 	}
 
@@ -65,8 +65,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, name); // Name
 		values.put(KEY_EMAIL, email); // Email
-//		values.put(KEY_UID, uid); // Email
-//		values.put(KEY_CREATED_AT, created_at); // Created At
 
 		// Inserting Row
 		db.insert(TABLE_LOGIN, null, values);
@@ -85,10 +83,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		// Move to first row
 		cursor.moveToFirst();
-		if(cursor.getCount() > 0){
+		if(cursor.getCount() > 0)
+		{
 			user.put("name", cursor.getString(1));
 			user.put("email", cursor.getString(2));
-			user.put("uid", cursor.getString(3));
 			user.put("created_at", cursor.getString(4));
 		}
 		cursor.close();

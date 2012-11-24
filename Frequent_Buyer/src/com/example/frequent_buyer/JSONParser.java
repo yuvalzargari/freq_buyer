@@ -15,10 +15,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
 public class JSONParser 
@@ -42,6 +42,7 @@ public class JSONParser
 		{
 			// defaultHttpClient
 			HttpClient httpClient = new DefaultHttpClient();
+			HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000);
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(params));
 
