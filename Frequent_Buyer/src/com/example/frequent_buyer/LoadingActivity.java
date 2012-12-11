@@ -61,6 +61,7 @@ public class LoadingActivity extends Activity
 		timer.start();
 	}
 	/*
+	 *  check if commit work
 	 * 	need to change to someting like that is more simple and quick from sqllite 
 	 * 
 	 *  	
