@@ -132,5 +132,64 @@ public class Register extends Activity
 		}
 
 	}
+	/*
+	 *  
+	 * 	need to change to someting like that is more simple and quick from sqllite 
+	 * 
+	 *  	
+	 *  private void saveUser(){
 
+		Boolean exists = false;
+		
+		//check if user already exists
+		for (int i = 0; i < StatPram.numOfUsers; i++){
+			if( settings.getString("user"+i, "false").compareTo(mailText) == 0)
+				exists  = true;
+		}
+		
+		//if not exists then add to list
+		if (!exists){
+			editor.putString("user"+StatPram.numOfUsers,mailText);
+			StatPram.numOfUsers++;
+			editor.putInt("numOfUsers", StatPram.numOfUsers);
+
+			// Commit the edits!
+			editor.commit();
+		}
+	}
+
+
+	//gets the email and password from edit texts  
+	private void getText(){
+		passText = pass.getText().toString();
+		mailText = mail.getText().toString();
+	}
+
+
+	//saves mail and password if checkbox is true
+	private void savePref()
+	{
+		editor.putString("mail", mailText);
+		editor.putString("pass", passText);
+
+		// Commit the edits!
+		editor.commit();
+	}
+
+
+	//last user that saved his mail
+	private void setSavedUser()
+	{
+		mailPref = settings.getString("mail", "false");
+		passPref = settings.getString("pass", "false");
+		if (mailPref.compareTo("false")!=0 && passPref.compareTo("false")!=0){
+			mail.setText(mailPref);
+			pass.setText(passPref);
+		}
+	}
+
+	 *  
+	 *  
+	 *  
+	 *  */
 }
