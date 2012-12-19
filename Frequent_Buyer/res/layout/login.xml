@@ -26,12 +26,6 @@
                 android:layout_marginLeft="10dip"
                 android:src="@drawable/logo" />
             <!-- Logo Ends -->
-            <CheckBox
-                android:id="@+id/checkBox_Business_owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.04"
-                android:text="@string/select_if_you_Business_Owner" />
         </LinearLayout>
         <!-- Header Ends -->
         <!-- Login Form -->
@@ -107,6 +101,14 @@
                 android:text="New to Frequent Buyer? signup"
                 android:textColor="#000000"
                 android:textSize="20dip" />
+            
+            
+            <CheckBox
+                android:id="@+id/checkBox_Business_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.04"
+                android:text="@string/select_if_you_Business_Owner" />
         </LinearLayout>
 
         <!-- Login Form Ends -->
