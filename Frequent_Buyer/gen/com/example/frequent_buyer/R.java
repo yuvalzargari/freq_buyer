@@ -19,17 +19,18 @@ public final class R {
     }
     public static final class id {
         public static final int btnLogin=0x7f060004;
-        public static final int btnRegister=0x7f06000a;
+        public static final int btnRegister=0x7f06000b;
+        public static final int checkBox_Business_owner=0x7f060006;
         public static final int header=0x7f060000;
-        public static final int link_to_login=0x7f06000b;
+        public static final int link_to_login=0x7f06000c;
         public static final int link_to_register=0x7f060005;
         public static final int login_email=0x7f060001;
         public static final int login_error=0x7f060003;
         public static final int login_password=0x7f060002;
-        public static final int reg_email=0x7f060007;
-        public static final int reg_fullname=0x7f060006;
-        public static final int reg_password=0x7f060008;
-        public static final int register_error=0x7f060009;
+        public static final int reg_email=0x7f060008;
+        public static final int reg_fullname=0x7f060007;
+        public static final int reg_password=0x7f060009;
+        public static final int register_error=0x7f06000a;
     }
     public static final class layout {
         public static final int activity_loading=0x7f030000;
@@ -44,6 +45,7 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
+        public static final int select_if_you_Business_Owner=0x7f040006;
         public static final int title_activity_business_menu=0x7f040004;
         public static final int title_activity_loading=0x7f040003;
         public static final int title_activity_owner_menu=0x7f040005;

@@ -9,8 +9,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Login extends Activity 
 {
@@ -20,6 +22,7 @@ public class Login extends Activity
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView loginErrorMsg;
+	CheckBox Business_owner;
 
 	// JSON Response node names
 	private static String KEY_SUCCESS = "success";
@@ -27,14 +30,15 @@ public class Login extends Activity
 	private static String KEY_EMAIL = "email";
 	private static String KEY_TYPE = "type";
 	
+	private boolean Business_owner_click_here = false;
 
-	
+
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
+
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.login_email);
@@ -42,6 +46,25 @@ public class Login extends Activity
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		txtLinkToRegister = (TextView) findViewById(R.id.link_to_register);
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
+		Business_owner = (CheckBox)findViewById(R.id.checkBox_Business_owner);
+
+		
+		//  Listener to check box if pressed or not
+		Business_owner.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if (Business_owner.hasSelection()==true)
+				{
+					setBusiness_owner_click_here(true);
+					Toast.makeText(getApplicationContext(),"Business owner check box pressed", Toast.LENGTH_LONG).show();
+				}
+				else
+				{
+					setBusiness_owner_click_here(false);
+					Toast.makeText(getApplicationContext(),"Business owner check box release", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+
 
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() 
@@ -56,7 +79,7 @@ public class Login extends Activity
 				// check for login response
 			}
 		});
-		
+
 		// Link to Register Screen
 		txtLinkToRegister.setOnClickListener(new View.OnClickListener() 
 		{
@@ -71,34 +94,42 @@ public class Login extends Activity
 
 	}
 
+	public boolean isBusiness_owner_click_here() {
+		return Business_owner_click_here;
+	}
+
+	public void setBusiness_owner_click_here(boolean business_owner_click_here) {
+		Business_owner_click_here = business_owner_click_here;
+	}
+
 	/* 
 	 * A thread to connect to the server to try to login
 	 */
 	private class ConnectionAsyncTask extends AsyncTask<String, Void, JSONObject> 
 	{
-		
+
 		UserFunctions userFunction;
-		
+
 		@Override
-	    protected void onPreExecute() 
-	    {
+		protected void onPreExecute() 
+		{
 			userFunction = new UserFunctions();
-	    }
-	 
-	    @Override
-	    protected JSONObject doInBackground(String... urls) 
-	    {	
-	    	String email = urls[0];
+		}
+
+		@Override
+		protected JSONObject doInBackground(String... urls) 
+		{	
+			String email = urls[0];
 			String password = urls[1];
-	    	UserFunctions userFunction = new UserFunctions();
-	    	JSONObject json = userFunction.loginUser(email, password);
-	    	return json;
-	    }
-	 
-	    @Override
-	    protected void onPostExecute(JSONObject json) 
-	    {
-	    	super.onPostExecute(json);
+			UserFunctions userFunction = new UserFunctions();
+			JSONObject json = userFunction.loginUser(email, password);
+			return json;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject json) 
+		{
+			super.onPostExecute(json);
 			try 
 			{
 				if (json.getString(KEY_SUCCESS) != null) 
@@ -143,8 +174,8 @@ public class Login extends Activity
 			{
 				e.printStackTrace();
 			}
-	    }
-		
+		}
+
 	}
 
 }

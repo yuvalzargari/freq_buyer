@@ -7,5 +7,6 @@
     <string name="title_activity_loading">LoadingActivity</string>
     <string name="title_activity_business_menu">BusinessMenu</string>
     <string name="title_activity_owner_menu">OwnerMenu</string>
+    <string name="select_if_you_Business_Owner">Business owner click here</string>
 
 </resources>
