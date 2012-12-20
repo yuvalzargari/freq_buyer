@@ -4,15 +4,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Login extends Activity 
 {
@@ -22,15 +21,15 @@ public class Login extends Activity
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView loginErrorMsg;
-	CheckBox Business_owner;
+	
+	ProgressDialog dialog;
 
 	// JSON Response node names
 	private static String KEY_SUCCESS = "success";
 	private static String KEY_NAME = "name";
 	private static String KEY_EMAIL = "email";
 	private static String KEY_TYPE = "type";
-	
-	private boolean Business_owner_click_here = false;
+
 
 
 
@@ -46,25 +45,6 @@ public class Login extends Activity
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		txtLinkToRegister = (TextView) findViewById(R.id.link_to_register);
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
-		Business_owner = (CheckBox)findViewById(R.id.checkBox_Business_owner);
-
-		
-		//  Listener to check box if pressed or not
-		Business_owner.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if (Business_owner.hasSelection()==true)
-				{
-					setBusiness_owner_click_here(true);
-					Toast.makeText(getApplicationContext(),"Business owner check box pressed", Toast.LENGTH_LONG).show();
-				}
-				else
-				{
-					setBusiness_owner_click_here(false);
-					Toast.makeText(getApplicationContext(),"Business owner check box release", Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-
 
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() 
@@ -94,14 +74,6 @@ public class Login extends Activity
 
 	}
 
-	public boolean isBusiness_owner_click_here() {
-		return Business_owner_click_here;
-	}
-
-	public void setBusiness_owner_click_here(boolean business_owner_click_here) {
-		Business_owner_click_here = business_owner_click_here;
-	}
-
 	/* 
 	 * A thread to connect to the server to try to login
 	 */
@@ -114,6 +86,8 @@ public class Login extends Activity
 		protected void onPreExecute() 
 		{
 			userFunction = new UserFunctions();
+			dialog = ProgressDialog.show(Login.this, "", "Loading...");
+			dialog.show();
 		}
 
 		@Override
@@ -130,6 +104,7 @@ public class Login extends Activity
 		protected void onPostExecute(JSONObject json) 
 		{
 			super.onPostExecute(json);
+
 			try 
 			{
 				if (json.getString(KEY_SUCCESS) != null) 
@@ -174,8 +149,11 @@ public class Login extends Activity
 			{
 				e.printStackTrace();
 			}
+	        if(dialog.isShowing()) 
+	        {
+	            dialog.dismiss();
+	        }
 		}
-
 	}
 
 }

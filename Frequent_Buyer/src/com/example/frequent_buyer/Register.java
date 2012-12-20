@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ public class Register extends Activity
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView registerErrorMsg;
+	
+	ProgressDialog dialog;
 
 	// JSON Response node names
 	private static String KEY_SUCCESS = "success";
@@ -76,6 +79,8 @@ public class Register extends Activity
 		protected void onPreExecute() 
 		{
 			userFunction = new UserFunctions();
+			dialog = ProgressDialog.show(Register.this, "", "Loading...");
+			dialog.show();
 		}
 
 		@Override
@@ -110,7 +115,7 @@ public class Register extends Activity
 						userFunction.logoutUser(getApplicationContext());
 						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));                        
 
-						Intent businessMenu = new Intent(Register.this, OwnerMenu.class);
+						Intent businessMenu = new Intent(Register.this, BusinessMenu.class);
 						startActivity(businessMenu);
 
 
@@ -129,67 +134,12 @@ public class Register extends Activity
 			{
 				e.printStackTrace();
 			}
+	        if(dialog.isShowing()) 
+	        {
+	            dialog.dismiss();
+	        }
 		}
 
 	}
-	/*
-	 *  
-	 * 	need to change to someting like that is more simple and quick from sqllite 
-	 * 
-	 *  	
-	 *  private void saveUser(){
 
-		Boolean exists = false;
-		
-		//check if user already exists
-		for (int i = 0; i < StatPram.numOfUsers; i++){
-			if( settings.getString("user"+i, "false").compareTo(mailText) == 0)
-				exists  = true;
-		}
-		
-		//if not exists then add to list
-		if (!exists){
-			editor.putString("user"+StatPram.numOfUsers,mailText);
-			StatPram.numOfUsers++;
-			editor.putInt("numOfUsers", StatPram.numOfUsers);
-
-			// Commit the edits!
-			editor.commit();
-		}
-	}
-
-
-	//gets the email and password from edit texts  
-	private void getText(){
-		passText = pass.getText().toString();
-		mailText = mail.getText().toString();
-	}
-
-
-	//saves mail and password if checkbox is true
-	private void savePref()
-	{
-		editor.putString("mail", mailText);
-		editor.putString("pass", passText);
-
-		// Commit the edits!
-		editor.commit();
-	}
-
-
-	//last user that saved his mail
-	private void setSavedUser()
-	{
-		mailPref = settings.getString("mail", "false");
-		passPref = settings.getString("pass", "false");
-		if (mailPref.compareTo("false")!=0 && passPref.compareTo("false")!=0){
-			mail.setText(mailPref);
-			pass.setText(passPref);
-		}
-	}
-
-	 *  
-	 *  
-	 *  
-	 *  */
 }

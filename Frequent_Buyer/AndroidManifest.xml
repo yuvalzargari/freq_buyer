@@ -16,8 +16,8 @@
         android:logo="@drawable/logo"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="com.example.frequent_buyer.LoadingActivity"
-            android:label="Loading screen" >
+            android:name="com.example.frequent_buyer.LoadingScreen"
+            android:label="Frequent Buyer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
