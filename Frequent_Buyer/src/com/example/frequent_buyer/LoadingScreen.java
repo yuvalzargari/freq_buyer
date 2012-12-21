@@ -31,12 +31,13 @@ public class LoadingScreen extends Activity
 					 * if the user details are saved(already logged in before) then
 					 * automatically login
 					 */
-					DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-					if(db.getRowCount() > 0)
+					UserFunctions userFunction = new UserFunctions();
+					if(userFunction.isUserLoggedIn(getApplicationContext()))
 					{
 						/*
 						 * get user details in order to know if he is the owner or the client
 						 */
+						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 						HashMap<String, String> userDetails = db.getUserDetails();
 						Intent activity;
 						if(userDetails.get("type").equals("client") == true)
@@ -47,7 +48,7 @@ public class LoadingScreen extends Activity
 						// Open the activity
 						startActivity(activity);
 						// Close Loading Screen
-						finish();
+						finish();	
 					}
 					else
 					{

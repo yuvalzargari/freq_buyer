@@ -42,7 +42,7 @@ public class JSONParser
 		{
 			// defaultHttpClient
 			HttpClient httpClient = new DefaultHttpClient();
-			HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000);
+			HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 5000);
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(new UrlEncodedFormEntity(params));
 

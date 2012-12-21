@@ -15,8 +15,8 @@ public class UserFunctions
 	private JSONParser jsonParser;
 
 
-	private static String loginURL = "http://eliproj1.site88.net";
-	private static String registerURL = "http://eliproj1.site88.net";
+	private static String loginURL = "http://eliproj1.site88.net/login.php";
+	private static String registerURL = "http://eliproj1.site88.net/register.php";
 
 	private static String login_tag = "login";
 	private static String register_tag = "register";
@@ -40,8 +40,6 @@ public class UserFunctions
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("password", password));
 		JSONObject json = jsonParser.getJSONFromUrl(loginURL, params);
-		// return json
-		// Log.e("JSON", json.toString());
 		return json;
 	}
 
@@ -62,7 +60,6 @@ public class UserFunctions
 
 		// getting JSON Object
 		JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
-		// return json
 		return json;
 	}
 

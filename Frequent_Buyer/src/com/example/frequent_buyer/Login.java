@@ -1,5 +1,8 @@
 package com.example.frequent_buyer;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +24,7 @@ public class Login extends Activity
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView loginErrorMsg;
-	
+
 	ProgressDialog dialog;
 
 	// JSON Response node names
@@ -37,7 +40,6 @@ public class Login extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.login_email);
@@ -72,6 +74,21 @@ public class Login extends Activity
 			}
 		});
 
+	}
+
+	private boolean is_email_valid(String hex)
+	{
+		Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+		Matcher m = p.matcher(hex);
+		boolean matchFound = m.matches();
+		return matchFound;
+	}
+	
+	private boolean is_password_empty(String password)
+	{
+		if(password.length() == 0)
+			return true;
+		return false;
 	}
 
 	/* 
@@ -149,10 +166,10 @@ public class Login extends Activity
 			{
 				e.printStackTrace();
 			}
-	        if(dialog.isShowing()) 
-	        {
-	            dialog.dismiss();
-	        }
+			if(dialog.isShowing()) 
+			{
+				dialog.dismiss();
+			}
 		}
 	}
 
