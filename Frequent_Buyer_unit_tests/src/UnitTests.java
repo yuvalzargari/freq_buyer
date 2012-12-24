@@ -9,7 +9,7 @@ public class UnitTests {
 
 	@Test
 	public void testThat1ReturnsI() {
-		assertEquals(null, number.test1(5));
+		assertEquals(null, number.test1(6));
 	}
 	
 
