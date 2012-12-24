@@ -5,11 +5,11 @@ import org.junit.Test;
 
 public class UnitTests {
 
-	private TestHereFunctionAndClass number = new TestHereFunctionAndClass();
-
 	@Test
-	public void testThat1ReturnsI() {
-		assertEquals(null, number.test1(6));
+	public void tests() {
+		Data_base_mock d = new Data_base_mock();
+		assertEquals(true, d.SignUp("eli@gmail.com", "pass"));
+		assertEquals(true, d.Login("eli@gmail.com", "pass"));
 	}
 	
 
