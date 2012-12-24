@@ -8,7 +8,7 @@ public class UnitTests {
 	@Test
 	public void tests() {
 		Data_base_mock d = new Data_base_mock();
-		assertEquals(true, d.Login("yuval@gmail.com", "pass"));
+		assertEquals(false, d.Login("yuval@gmail.com", "pass"));
 		
 	}
 	
