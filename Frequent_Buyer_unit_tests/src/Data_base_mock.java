@@ -49,7 +49,8 @@ public class Data_base_mock
 	//checks if mail is valid
 	private boolean is_email_valid(String hex) 
 	{
-		Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+		Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		Matcher m = p.matcher(hex);
 		boolean matchFound = m.matches();
 		return matchFound;
@@ -61,14 +62,17 @@ public class Data_base_mock
 		{
 			for (int j = 0; j < db[0].length; j++) 
 			{
-				s+=db[i][j]+"\t";
-				if(j == 1 && i!=1 && i!=2)
-					s+="\t";
-				if(j == 3 && i != 0)
-					s+="\t";
-				if (j==1&& db[i][j] != null) {
-
+				s +=db[i][j];
+				if (db[i][j] != null) {
+					for (int j2 = db[i][j].length(); j2 < 20; j2++) {
+						s += " ";
+					}
 				}	
+				else {
+					for (int j2 = 4; j2 < 20; j2++) {
+						s += " ";
+					}
+				}
 			}
 			s+="\n";
 		}
