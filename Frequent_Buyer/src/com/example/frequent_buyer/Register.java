@@ -27,6 +27,7 @@ public class Register extends Activity
 
 	// JSON Response node names
 	private static String KEY_SUCCESS = "success";
+	private static String KEY_ERROR = "error";
 	private static String KEY_NAME = "name";
 	private static String KEY_EMAIL = "email";
 	private static String KEY_TYPE = "type";
@@ -144,10 +145,19 @@ public class Register extends Activity
 						// Close Login Screen
 						Register.this.finish();
 					}
-					else
+					else if(json.getString(KEY_ERROR) != null)
 					{
-						// Error in login
-						registerErrorMsg.setText("Error occured in registration");
+						res = json.getString(KEY_ERROR);
+						if(Integer.parseInt(res) == 1)
+						{
+							// Error in register
+							registerErrorMsg.setText("Error occured in registration");
+						}
+						else if(Integer.parseInt(res) == 2)
+						{
+							// User already exist
+							registerErrorMsg.setText("user already exist");	
+						}
 					}
 				}
 			} 
