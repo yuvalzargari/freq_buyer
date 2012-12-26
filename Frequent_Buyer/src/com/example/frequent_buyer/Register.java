@@ -53,9 +53,21 @@ public class Register extends Activity
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
 				String fullname = inputFullName.getText().toString();
-				new ConnectionAsyncTask().execute(email, password, fullname);
-				//JSONObject json = userFunction.loginUser(email, password);
-				// check for login response
+				EmailValidator emailvalidator = new EmailValidator();
+				if(emailvalidator.validate(email) == false)
+				{
+					if(is_password_empty(password))
+						registerErrorMsg.setText("invalid email/password");
+					else
+						registerErrorMsg.setText("invalid email");
+				}
+				else if(password.equals(""))
+					registerErrorMsg.setText("invalid password");
+				else
+				{
+					registerErrorMsg.setText("");
+					new ConnectionAsyncTask().execute(email, password, fullname);
+				}
 			}
 		});
 
@@ -69,6 +81,15 @@ public class Register extends Activity
 				finish();
 			}
 		});
+	}
+	
+	private boolean is_password_empty(String password)
+	{
+		if(password == null)
+			return true;
+		if(password.equals(""))
+			return true;
+		return false;
 	}
 
 	private class ConnectionAsyncTask extends AsyncTask<String, Void, JSONObject> 

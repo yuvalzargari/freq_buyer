@@ -1,8 +1,5 @@
 package com.example.frequent_buyer;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,9 +53,22 @@ public class Login extends Activity
 			{
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
-				new ConnectionAsyncTask().execute(email, password);
-				//JSONObject json = userFunction.loginUser(email, password);
-				// check for login response
+				EmailValidator emailvalidator = new EmailValidator();
+				if(emailvalidator.validate(email) == false)
+				{
+					if(is_password_empty(password))
+						loginErrorMsg.setText("invalid email/password");
+					else
+						loginErrorMsg.setText("invalid email");
+				}
+				else if(is_password_empty(password))
+					loginErrorMsg.setText("invalid password");
+				else
+				{
+					loginErrorMsg.setText("");
+					new ConnectionAsyncTask().execute(email, password);
+				}
+				
 			}
 		});
 
@@ -75,18 +85,12 @@ public class Login extends Activity
 		});
 
 	}
-
-	private boolean is_email_valid(String hex)
-	{
-		Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-		Matcher m = p.matcher(hex);
-		boolean matchFound = m.matches();
-		return matchFound;
-	}
 	
 	private boolean is_password_empty(String password)
 	{
-		if(password.length() == 0)
+		if(password == null)
+			return true;
+		if(password.equals(""))
 			return true;
 		return false;
 	}
