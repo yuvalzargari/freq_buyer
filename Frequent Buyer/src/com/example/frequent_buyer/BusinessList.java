@@ -4,11 +4,11 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
  
 public class BusinessList extends ListActivity {
  
@@ -22,8 +22,16 @@ public class BusinessList extends ListActivity {
  
 		// no more this
 		// setContentView(R.layout.list_fruit);
- 
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_business_list,FRUITS));
+		String business[] = null;
+		BusinessFunction businessFunction = new BusinessFunction();
+		if(businessFunction.businessAvailable(getApplicationContext()) == true)
+		{
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			business = db.getAllBusinessNames();
+		}
+		
+		
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_business_list,business));
  
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);

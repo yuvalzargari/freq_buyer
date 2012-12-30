@@ -28,7 +28,6 @@ public class LoadingScreen extends Activity
 		setContentView(R.layout.activity_loading);
 		
 		
-		new ConnectionAsyncTask().execute();
 
 
 		Thread timer = new Thread()
@@ -50,10 +49,10 @@ public class LoadingScreen extends Activity
 						/*
 						 * get user details in order to know if he is the owner or the client
 						 */
-						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-						HashMap<String, String> userDetails = db.getUserDetails();
+						staticParams.saveUserDetail(getApplicationContext());
 						Intent activity;
-						if(userDetails.get("type").equals("client") == true)
+//						activity = new Intent(LoadingScreen.this, BusinessList.class);
+						if(staticParams.userType.equals("client") == true)
 							activity = new Intent(LoadingScreen.this, BusinessMenu.class);
 						else
 							activity = new Intent(LoadingScreen.this, OwnerMenu.class);
@@ -78,6 +77,7 @@ public class LoadingScreen extends Activity
 
 		};
 		timer.start();
+//		new ConnectionAsyncTask().execute();
 	}
 	
 	private class ConnectionAsyncTask extends AsyncTask<Void, Void, JSONObject> 
@@ -112,12 +112,12 @@ public class LoadingScreen extends Activity
 					String res = json.getString(KEY_SUCCESS);
 					if(Integer.parseInt(res) == 1)
 					{
-						// user successfully logged in
-						// Store user details in SQLite Database
+						// business successfully retrived in
+						// Store all business details in SQLite Database
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 						JSONArray json_business = json.getJSONArray("business");
 						// Clear all previous data in database 
-						db.resetBusinessTable();
+						businessFunction.removeAllBusiness(getApplicationContext());
 						// Add all business to the table
 						db.addBusiness(json_business);
 					}

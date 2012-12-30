@@ -131,6 +131,23 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		// return row count
 		return rowCount;
 	}
+	
+	/**
+	 * Checking if any business are available
+	 * return true if rows are there in table
+	 * */
+	public int getRowCountBusiness() 
+	{
+		String countQuery = "SELECT  * FROM " + TABLE_BUSINESS;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+		int rowCount = cursor.getCount();
+		db.close();
+		cursor.close();
+
+		// return row count
+		return rowCount;
+	}
 
 	public void addBusiness(JSONArray json_business)
 	{
@@ -164,26 +181,55 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		}
 	}
 
-	public HashMap<String, String> getBusiness()
+	/*
+	 * Returns string array with all business names
+	 */
+	public String[] getAllBusinessNames()
 	{
-		HashMap<String,String> business = new HashMap<String,String>();
 		String selectQuery = "SELECT  * FROM " + TABLE_BUSINESS;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
+		int size = cursor.getCount();
+		String business[] = new String[size];
+		for(int i=0; i < size; i++)
+		{
+			business[i] = cursor.getString(1);
+		}
+		int i = 0;
 		// Move to first row
 		cursor.moveToFirst();
 		do
 		{
 			if(cursor.getCount() > 0)
 			{
-				business.put("name", cursor.getString(1));
-				business.put("menu", cursor.getString(2));
-				business.put("events", cursor.getString(3));
+				business[i] = cursor.getString(1);
+				i++;
 			}
 			cursor.moveToNext();
 		}
 		while(!cursor.isAfterLast());
+		cursor.close();
+		db.close();
+		// return user
+		return business;
+	}
+	
+	public HashMap<String, String> getBusinessByName(String name)
+	{
+		HashMap<String, String> business = new HashMap<String, String>();
+		String selectQuery = "SELECT  * FROM WHERE name = " + name + TABLE_BUSINESS;
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		
+		cursor.moveToFirst();
+		if(cursor.getCount() > 0)
+		{
+			business.put("name", cursor.getString(1));
+			business.put("menu", cursor.getString(2));
+			business.put("events", cursor.getString(3));
+		}
 		cursor.close();
 		db.close();
 		// return user

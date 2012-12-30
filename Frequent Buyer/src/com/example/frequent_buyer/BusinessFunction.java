@@ -8,6 +8,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 public class BusinessFunction 
 {
 
@@ -31,6 +33,23 @@ public class BusinessFunction
 		params.add(new BasicNameValuePair("tag", business_tag));
 		JSONObject json = jsonParser.getJSONFromUrl(getBusinessURL, params);
 		return json;
+	}
+	
+	public void removeAllBusiness(Context context)
+	{
+		DatabaseHandler db = new DatabaseHandler(context);
+		db.resetBusinessTable();
+	}
+	
+	public boolean businessAvailable(Context context)
+	{
+		DatabaseHandler db = new DatabaseHandler(context);
+		int count = db.getRowCountBusiness();
+		if(count > 0){
+			// user logged in
+			return true;
+		}
+		return false;
 	}
 	
 	
