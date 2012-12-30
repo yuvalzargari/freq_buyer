@@ -143,18 +143,19 @@ public class Login extends Activity
 						userFunction.logoutUser(getApplicationContext());
 						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));
 						staticParams.saveUserDetail(getApplicationContext());
-
-						String type = json_user.getString(KEY_TYPE);
-						if(type.equals("client"))
-						{
-							Intent businessMenu = new Intent(Login.this, BusinessMenu.class);
-							startActivity(businessMenu);
-						}
-						else
-						{
-							Intent ownerMenu = new Intent(Login.this, OwnerMenu.class);
-							startActivity(ownerMenu);
-						}
+						
+						Intent activity = new Intent(Login.this, BusinessList.class);
+						startActivity(activity);
+//						if(staticParams.userType.equals("client"))
+//						{
+//							Intent businessMenu = new Intent(Login.this, BusinessMenu.class);
+//							startActivity(businessMenu);
+//						}
+//						else
+//						{
+//							Intent ownerMenu = new Intent(Login.this, OwnerMenu.class);
+//							startActivity(ownerMenu);
+//						}
 
 
 						if(dialog.isShowing()) 

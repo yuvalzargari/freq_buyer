@@ -1,8 +1,6 @@
 package com.example.frequent_buyer;
 
 
-import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +27,7 @@ public class LoadingScreen extends Activity
 		
 		
 
+		new ConnectionAsyncTask().execute();
 
 		Thread timer = new Thread()
 		{
@@ -39,35 +38,6 @@ public class LoadingScreen extends Activity
 				{
 					sleep(1000);
 
-					/* 
-					 * if the user details are saved(already logged in before) then
-					 * automatically login
-					 */
-					UserFunctions userFunction = new UserFunctions();
-					if(userFunction.isUserLoggedIn(getApplicationContext()))
-					{
-						/*
-						 * get user details in order to know if he is the owner or the client
-						 */
-						staticParams.saveUserDetail(getApplicationContext());
-						Intent activity;
-//						activity = new Intent(LoadingScreen.this, BusinessList.class);
-						if(staticParams.userType.equals("client") == true)
-							activity = new Intent(LoadingScreen.this, BusinessMenu.class);
-						else
-							activity = new Intent(LoadingScreen.this, OwnerMenu.class);
-
-						// Open the activity
-						startActivity(activity);
-						// Close Loading Screen
-						finish();	
-					}
-					else
-					{
-						Intent toOpen = new Intent(LoadingScreen.this, Login.class); 
-						startActivity(toOpen);
-						finish();
-					}
 				}
 				catch(InterruptedException e)
 				{
@@ -76,8 +46,7 @@ public class LoadingScreen extends Activity
 			}
 
 		};
-		timer.start();
-//		new ConnectionAsyncTask().execute();
+//		timer.start();
 	}
 	
 	private class ConnectionAsyncTask extends AsyncTask<Void, Void, JSONObject> 
@@ -130,6 +99,35 @@ public class LoadingScreen extends Activity
 			catch (JSONException e) 
 			{
 				e.printStackTrace();
+			}
+			/* 
+			 * if the user details are saved(already logged in before) then
+			 * automatically login
+			 */
+			UserFunctions userFunction = new UserFunctions();
+			if(userFunction.isUserLoggedIn(getApplicationContext()))
+			{
+				/*
+				 * get user details in order to know if he is the owner or the client
+				 */
+				staticParams.saveUserDetail(getApplicationContext());
+				Intent activity;
+				activity = new Intent(LoadingScreen.this, BusinessList.class);
+//				if(staticParams.userType.equals("client") == true)
+//					activity = new Intent(LoadingScreen.this, BusinessMenu.class);
+//				else
+//					activity = new Intent(LoadingScreen.this, OwnerMenu.class);
+
+				// Open the activity
+				startActivity(activity);
+				// Close Loading Screen
+				finish();	
+			}
+			else
+			{
+				Intent toOpen = new Intent(LoadingScreen.this, Login.class); 
+				startActivity(toOpen);
+				finish();
 			}
 		}
 	}

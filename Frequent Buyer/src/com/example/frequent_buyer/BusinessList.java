@@ -10,18 +10,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
  
-public class BusinessList extends ListActivity {
+public class BusinessList extends ListActivity 
+{
  
-	static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-			"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-			"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
+	
  
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
  
-		// no more this
-		// setContentView(R.layout.list_fruit);
 		String business[] = null;
 		BusinessFunction businessFunction = new BusinessFunction();
 		if(businessFunction.businessAvailable(getApplicationContext()) == true)
@@ -29,9 +27,13 @@ public class BusinessList extends ListActivity {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			business = db.getAllBusinessNames();
 		}
+		else
+		{
+			business = new String[1];
+			business[0] = "No business found!";
+		}
 		
-		
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_business_list,business));
+		setListAdapter(new ArrayAdapter<String>(BusinessList.this, android.R.layout.simple_list_item_1, business));
  
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);

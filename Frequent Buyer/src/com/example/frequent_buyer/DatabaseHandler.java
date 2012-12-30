@@ -1,6 +1,5 @@
 package com.example.frequent_buyer;
 
-import java.util.Currency;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -38,6 +37,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_BUSINESS_NAME = "name";
 	private static final String KEY_BUSINESS_MENU = "menu";
 	private static final String KEY_BUSINESS_EVENTS = "events";
+	
+	private static final String CREATE_LOGIN_TABLE = "create table if not exists " + TABLE_LOGIN + "("
+			+ KEY_USER_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_USER_NAME + " TEXT,"
+			+ KEY_USER_EMAIL + " TEXT UNIQUE,"
+			+ KEY_USER_TYPE + " TEXT" + ")";
+	
+	private static final String CREATE_BUSINESS_TABLE = "create table if not exists " + TABLE_BUSINESS + "("
+			+ KEY_BUSINESS_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_BUSINESS_NAME + " TEXT,"
+			+ KEY_BUSINESS_MENU + " TEXT,"
+			+ KEY_BUSINESS_EVENTS + " TEXT" + ")";
 
 	public DatabaseHandler(Context context) 
 	{
@@ -48,16 +59,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-				+ KEY_USER_ID + " INTEGER PRIMARY KEY,"
-				+ KEY_USER_NAME + " TEXT,"
-				+ KEY_USER_EMAIL + " TEXT UNIQUE,"
-				+ KEY_USER_TYPE + " TEXT" + ")";
-		String CREATE_BUSINESS_TABLE = "CREATE TABLE " + TABLE_BUSINESS + "("
-				+ KEY_BUSINESS_ID + " INTEGER PRIMARY KEY,"
-				+ KEY_BUSINESS_NAME + " TEXT,"
-				+ KEY_BUSINESS_MENU + " TEXT,"
-				+ KEY_BUSINESS_EVENTS + " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
 		db.execSQL(CREATE_BUSINESS_TABLE);
 	}
@@ -152,7 +153,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public void addBusiness(JSONArray json_business)
 	{
 		
-		resetBusinessTable();
 		for(int i=0; i < json_business.length(); i++)
 		{
 			try 
@@ -192,10 +192,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		int size = cursor.getCount();
 		String business[] = new String[size];
-		for(int i=0; i < size; i++)
-		{
-			business[i] = cursor.getString(1);
-		}
 		int i = 0;
 		// Move to first row
 		cursor.moveToFirst();
@@ -203,7 +199,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		{
 			if(cursor.getCount() > 0)
 			{
-				business[i] = cursor.getString(1);
+				business[i] = cursor.getString(cursor.getColumnIndex(KEY_BUSINESS_NAME));
 				i++;
 			}
 			cursor.moveToNext();

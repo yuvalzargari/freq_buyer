@@ -138,7 +138,7 @@ public class Register extends Activity
 						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));
 						staticParams.saveUserDetail(getApplicationContext());
 
-						Intent businessMenu = new Intent(Register.this, BusinessMenu.class);
+						Intent businessMenu = new Intent(Register.this, BusinessList.class);
 						startActivity(businessMenu);
 
 
