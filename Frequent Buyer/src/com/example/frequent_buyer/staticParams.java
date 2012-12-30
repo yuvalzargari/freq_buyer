@@ -14,6 +14,8 @@ public class staticParams
 	public static String businessMenu;
 	public static String businessEvents;
 	
+	public static int userCounterToBenefit;
+	
 	public static void saveUserDetail(Context context)
 	{
 		DatabaseHandler db = new DatabaseHandler(context);
