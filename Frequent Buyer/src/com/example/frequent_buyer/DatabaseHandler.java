@@ -214,7 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public HashMap<String, String> getBusinessByName(String name)
 	{
 		HashMap<String, String> business = new HashMap<String, String>();
-		String selectQuery = "SELECT  * FROM WHERE name = " + name + TABLE_BUSINESS;
+		String selectQuery = "SELECT  * FROM " + TABLE_BUSINESS + " WHERE name = '" + name + "'";
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -222,9 +222,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		cursor.moveToFirst();
 		if(cursor.getCount() > 0)
 		{
-			business.put("name", cursor.getString(1));
-			business.put("menu", cursor.getString(2));
-			business.put("events", cursor.getString(3));
+			business.put("name", cursor.getString(cursor.getColumnIndex("name")));
+			business.put("menu", cursor.getString(cursor.getColumnIndex("menu")));
+			business.put("events", cursor.getString(cursor.getColumnIndex("events")));
 		}
 		cursor.close();
 		db.close();
