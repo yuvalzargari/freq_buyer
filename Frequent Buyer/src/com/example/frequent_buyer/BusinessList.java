@@ -20,7 +20,12 @@ public class BusinessList extends ListActivity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
- 
+		
+		ListView v = getListView();
+		v.setCacheColorHint(0);
+		v.setBackgroundResource(R.drawable.background);
+		setContentView(v);	
+		
 		String business[] = null;
 		BusinessFunction businessFunction = new BusinessFunction();
 		if(businessFunction.businessAvailable(getApplicationContext()) == true)

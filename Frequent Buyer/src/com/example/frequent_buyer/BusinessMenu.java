@@ -40,13 +40,13 @@ public class BusinessMenu extends TabActivity
         tabHost.addTab(menuspec); // Adding menu tab
         tabHost.addTab(eventsspec); // Adding events tab
         tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
-        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
+//        tabHost.addTab(couponspec); // Adding coupon tab
         
     }
 
