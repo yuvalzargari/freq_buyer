@@ -6,7 +6,7 @@
   android:layout_height="match_parent"
   android:background="@drawable/background">
  
-  <!-- Screen Design for Photos -->
+  <!-- Screen Design for menu -->
   <TextView android:text="Menu"
             android:padding="15dip"
             android:textSize="18dip"

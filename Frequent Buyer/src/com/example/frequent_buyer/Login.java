@@ -128,7 +128,11 @@ public class Login extends Activity
 
 			try 
 			{
-				if (json.getString(KEY_SUCCESS) != null) 
+				if(json == null)
+				{
+					loginErrorMsg.setText("Error connecting to the server, try again");
+				}
+				else if (json.getString(KEY_SUCCESS) != null) 
 				{
 					loginErrorMsg.setText("");
 					String res = json.getString(KEY_SUCCESS);
@@ -146,16 +150,6 @@ public class Login extends Activity
 						
 						Intent activity = new Intent(Login.this, BusinessList.class);
 						startActivity(activity);
-//						if(staticParams.userType.equals("client"))
-//						{
-//							Intent businessMenu = new Intent(Login.this, BusinessMenu.class);
-//							startActivity(businessMenu);
-//						}
-//						else
-//						{
-//							Intent ownerMenu = new Intent(Login.this, OwnerMenu.class);
-//							startActivity(ownerMenu);
-//						}
 
 
 						if(dialog.isShowing()) 

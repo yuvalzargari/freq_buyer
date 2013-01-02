@@ -122,13 +122,17 @@ public class Register extends Activity
 			super.onPostExecute(json);
 			try 
 			{
-				if (json.getString(KEY_SUCCESS) != null) 
+				if(json == null)
+				{
+					registerErrorMsg.setText("Error connecting to the server, try again");
+				}
+				else if (json.getString(KEY_SUCCESS) != null) 
 				{
 					registerErrorMsg.setText("");
 					String res = json.getString(KEY_SUCCESS);
 					if(Integer.parseInt(res) == 1)
 					{
-						// user successfully registred
+						// user successfully registered
 						// Store user details in SQLite Database
 						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 						JSONObject json_user = json.getJSONObject("user");

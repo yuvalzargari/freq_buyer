@@ -34,12 +34,18 @@ public class BusinessFunction
 		return json;
 	}
 	
+	/*
+	 * Removes all the data stored in the sql lite on the business
+	 */
 	public void removeAllBusiness(Context context)
 	{
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.resetBusinessTable();
 	}
 	
+	/*
+	 * Check if there are any business stored in sql lite
+	 */
 	public boolean businessAvailable(Context context)
 	{
 		DatabaseHandler db = new DatabaseHandler(context);
