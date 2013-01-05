@@ -15,8 +15,8 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
     $tag = $_POST['tag'];
  
     // include db handler
-    require_once '/home/a9208348/public_html/DB_Functions.php';
-    $db = new DB_Functions();
+    require_once '/home/a9208348/public_html/DB_Users_Functions.php';
+    $db = new DB_Users_Functions();
  
     // response Array
     $response = array("tag" => $tag, "success" => 0, "error" => 0);
