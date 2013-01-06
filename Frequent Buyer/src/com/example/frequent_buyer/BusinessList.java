@@ -35,7 +35,7 @@ public class BusinessList extends Activity
 
 	// Progress Dialog when loading from the database
 	ProgressDialog dialog;
-
+	
 	Button searchBtn, btn_logout;
 	EditText inputSearch;
 	TextView title;
@@ -59,14 +59,14 @@ public class BusinessList extends Activity
 		connect = new ConnectionAsyncTask();
 
 		businessList = (ListView) findViewById(R.id.list);
-
+		
 		searchBtn = (Button)findViewById(R.id.btn_search);
 		btn_logout = (Button) findViewById(R.id.btn_logout);
 		title = (TextView) findViewById(R.id.txtTitle);
 		searchBtn.setVisibility(View.VISIBLE);
 		inputSearch = (EditText)findViewById(R.id.txt_search);
-
-
+		
+		
 		// Listening Search button click
 		searchBtn.setOnClickListener(new View.OnClickListener() 
 		{
@@ -79,29 +79,29 @@ public class BusinessList extends Activity
 				inputSearch.setVisibility(View.VISIBLE);
 			}
 		});
-
+		
 		inputSearch.addTextChangedListener(new TextWatcher() 
 		{
-			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) 
-			{
-				// When user changed the Text
-				adapter.getFilter().filter(cs.toString());
-			}
-
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) 
-			{
-				// TODO Auto-generated method stub
-
-			}
-
-			public void afterTextChanged(Editable arg0) 
-			{
-				// TODO Auto-generated method stub
-			}
+		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) 
+		    {
+		        // When user changed the Text
+		    	adapter.getFilter().filter(cs.toString());
+		    }
+		 
+		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+		            int arg3) 
+		    {
+		        // TODO Auto-generated method stub
+		 
+		    }
+		 
+		    public void afterTextChanged(Editable arg0) 
+		    {
+		        // TODO Auto-generated method stub
+		    }
 		});
-
-
+		
+		
 		// Listening to Logout button click
 		btn_logout.setOnClickListener(new View.OnClickListener() 
 		{
@@ -116,10 +116,10 @@ public class BusinessList extends Activity
 				finish();
 			}
 		});
-
+		
 		connect.execute(this);
 	}
-
+	
 	@Override
 	protected void onResume() 
 	{
@@ -128,7 +128,7 @@ public class BusinessList extends Activity
 		if(userFunction.isUserLoggedIn(getApplicationContext()) == false)
 			finish();
 	}
-
+	
 	private boolean checkSearchOpen()
 	{
 		if(inputSearch.getVisibility() == View.VISIBLE)
@@ -159,7 +159,7 @@ public class BusinessList extends Activity
 				public void onClick(DialogInterface dialog, int which) {
 					finish();    
 				}
-
+	
 			})
 			.setNegativeButton("No", null)
 			.show();
@@ -210,11 +210,23 @@ public class BusinessList extends Activity
 						business = new ArrayList<HashMap<String,String>>();
 						// business successfully retrived in
 						// Store all business details in SQLite Database
+						DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 						JSONArray json_business = json.getJSONArray("business");
-
+						
 						// Clear all previous data in database
 						businessFunction.removeAllBusiness(getApplicationContext());
-						insertBusinessListIntoAdapter(json_business);
+						for(int i=0; i < json_business.length(); i++)
+						{
+							HashMap<String, String> businessdetail = new HashMap<String, String>();
+							JSONObject jsonBusiness = json_business.getJSONObject(i);
+							// Add all business to the table
+							db.addBusiness(jsonBusiness);
+							String name = jsonBusiness.getString(KEY_BUSINESS_NAME);
+							String logo = jsonBusiness.getString(KEY_BUSINESS_LOGO);
+							businessdetail.put(KEY_BUSINESS_NAME, name);
+							businessdetail.put(KEY_BUSINESS_LOGO, logo);
+							business.add(businessdetail);
+						}
 
 						// push the data into the adapter and how it in the list
 						adapter=new BusinessListAdapter(activity, business);  
@@ -231,6 +243,7 @@ public class BusinessList extends Activity
 								// When clicked, open the business activity
 								String name = ((TextView) view.findViewById(R.id.txtBusinessName)).getText().toString();
 								staticParams.saveBusinessDetail(getApplicationContext(), name);
+								staticParams.businessName = name;
 								Intent activity;
 								if(staticParams.userType.equals("client") == true)
 									activity = new Intent(BusinessList.this, ClientMenu.class);
@@ -255,29 +268,6 @@ public class BusinessList extends Activity
 			{
 				dialog.dismiss();
 			}
-		}
-
-		private ArrayList<HashMap<String,String>> insertBusinessListIntoAdapter(JSONArray json_business)
-		{				
-			try 
-			{
-				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				for(int i=0; i < json_business.length(); i++)
-				{
-					HashMap<String, String> businessdetail = new HashMap<String, String>();
-					JSONObject jsonBusiness = json_business.getJSONObject(i);
-					// Add all business to the table
-					db.addBusiness(jsonBusiness);
-					String name = jsonBusiness.getString(KEY_BUSINESS_NAME);
-					String logo = jsonBusiness.getString(KEY_BUSINESS_LOGO);
-
-					businessdetail.put(KEY_BUSINESS_NAME, name);
-					businessdetail.put(KEY_BUSINESS_LOGO, logo);
-					business.add(businessdetail);
-				}
-			}
-			catch (JSONException e) {}
-			return business;
 		}
 	}
 

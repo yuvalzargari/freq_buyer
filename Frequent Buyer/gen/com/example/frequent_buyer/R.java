@@ -27,12 +27,13 @@ public final class R {
         public static final int log_out_32=0x7f02000d;
         public static final int logo=0x7f02000e;
         public static final int menu_icon=0x7f02000f;
-        public static final int message_icon=0x7f020010;
-        public static final int refresh_32=0x7f020011;
-        public static final int search_32=0x7f020012;
+        public static final int menuexample=0x7f020010;
+        public static final int message_icon=0x7f020011;
+        public static final int refresh_32=0x7f020012;
+        public static final int search_32=0x7f020013;
     }
     public static final class id {
-        public static final int benefit_text_id=0x7f07001b;
+        public static final int benefit_text_id=0x7f07001c;
         public static final int btnLogin=0x7f070011;
         public static final int btnRegister=0x7f070017;
         public static final int btn_coupon=0x7f070007;
@@ -62,7 +63,7 @@ public final class R {
         public static final int txtBusinessName=0x7f07000c;
         public static final int txtTitle=0x7f070000;
         public static final int txt_search=0x7f070001;
-        public static final int your_benefit_id=0x7f07001c;
+        public static final int your_benefit_id=0x7f07001b;
     }
     public static final class layout {
         public static final int actionbar_layout=0x7f030000;
@@ -71,17 +72,18 @@ public final class R {
         public static final int activity_loading=0x7f030003;
         public static final int activity_menu=0x7f030004;
         public static final int business_list=0x7f030005;
-        public static final int client_menu_layout=0x7f030006;
-        public static final int fragment_layout=0x7f030007;
-        public static final int header_gradient=0x7f030008;
-        public static final int list_row=0x7f030009;
-        public static final int login=0x7f03000a;
-        public static final int menu_activity=0x7f03000b;
-        public static final int owner_menu=0x7f03000c;
-        public static final int register=0x7f03000d;
-        public static final int tab_coupon=0x7f03000e;
-        public static final int tab_events=0x7f03000f;
-        public static final int tab_menu=0x7f030010;
+        public static final int business_menu=0x7f030006;
+        public static final int client_menu_layout=0x7f030007;
+        public static final int fragment_layout=0x7f030008;
+        public static final int header_gradient=0x7f030009;
+        public static final int list_row=0x7f03000a;
+        public static final int login=0x7f03000b;
+        public static final int menu_activity=0x7f03000c;
+        public static final int owner_menu=0x7f03000d;
+        public static final int register=0x7f03000e;
+        public static final int tab_coupon=0x7f03000f;
+        public static final int tab_events=0x7f030010;
+        public static final int tab_menu=0x7f030011;
     }
     public static final class menu {
         public static final int activity_business_list=0x7f060000;
