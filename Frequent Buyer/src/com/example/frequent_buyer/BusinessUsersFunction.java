@@ -12,7 +12,7 @@ public class BusinessUsersFunction
 	
 	private JSONParser jsonParser;
 	
-	private static String getCouponURL = "http://eliproj1.site88.net/getCoupon.php";
+	private static String getCouponURL = "http://eliproj1.site88.net/getcouponnum.php";
 	
 	private static String getCoupon_tag = "getCoupon";
 	
