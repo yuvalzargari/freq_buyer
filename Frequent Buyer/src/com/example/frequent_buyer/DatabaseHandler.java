@@ -2,7 +2,6 @@ package com.example.frequent_buyer;
 
 import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,18 +34,20 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	// Business Table Columns names
 	private static final String KEY_BUSINESS_ID = "id";
 	private static final String KEY_BUSINESS_NAME = "name";
+	private static final String KEY_BUSINESS_LOGO = "logo";
 	private static final String KEY_BUSINESS_MENU = "menu";
 	private static final String KEY_BUSINESS_EVENTS = "events";
-	
+
 	private static final String CREATE_LOGIN_TABLE = "create table if not exists " + TABLE_LOGIN + "("
 			+ KEY_USER_ID + " INTEGER PRIMARY KEY,"
 			+ KEY_USER_NAME + " TEXT,"
 			+ KEY_USER_EMAIL + " TEXT UNIQUE,"
 			+ KEY_USER_TYPE + " TEXT" + ")";
-	
+
 	private static final String CREATE_BUSINESS_TABLE = "create table if not exists " + TABLE_BUSINESS + "("
 			+ KEY_BUSINESS_ID + " INTEGER PRIMARY KEY,"
 			+ KEY_BUSINESS_NAME + " TEXT,"
+			+ KEY_BUSINESS_LOGO + " TEXT,"
 			+ KEY_BUSINESS_MENU + " TEXT,"
 			+ KEY_BUSINESS_EVENTS + " TEXT" + ")";
 
@@ -132,7 +133,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		// return row count
 		return rowCount;
 	}
-	
+
 	/**
 	 * Checking if any business are available
 	 * return true if rows are there in table
@@ -150,57 +151,53 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		return rowCount;
 	}
 
-	public void addBusiness(JSONArray json_business)
+	public void addBusiness(JSONObject json_business)
 	{
-		
-		for(int i=0; i < json_business.length(); i++)
+		try 
 		{
-			try 
-			{
-				JSONObject business = json_business.getJSONObject(i);
-				String name = business.getString("name");
-				String menu = business.getString("menu");
-				String events = business.getString("events");
-				
-				SQLiteDatabase db = this.getWritableDatabase();
-				
-				ContentValues values = new ContentValues();
-				values.put(KEY_BUSINESS_NAME, name); // Name
-				values.put(KEY_BUSINESS_MENU, menu); // Email
-				values.put(KEY_BUSINESS_EVENTS, events); // Type
+			String name = json_business.getString(KEY_BUSINESS_NAME);
+			String logo = json_business.getString(KEY_BUSINESS_LOGO);
+			String menu = json_business.getString(KEY_BUSINESS_MENU);
+			String events = json_business.getString(KEY_BUSINESS_EVENTS);
 
-				// Inserting Row
-				db.insert(TABLE_BUSINESS, null, values);
-				db.close(); // Closing database connection
-				
-			} catch (JSONException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			SQLiteDatabase db = this.getWritableDatabase();
+
+			ContentValues values = new ContentValues();
+			values.put(KEY_BUSINESS_NAME, name); // Name
+			values.put(KEY_BUSINESS_LOGO, logo); // Logo
+			values.put(KEY_BUSINESS_MENU, menu); // Email
+			values.put(KEY_BUSINESS_EVENTS, events); // Type
+
+			// Inserting Row
+			db.insert(TABLE_BUSINESS, null, values);
+			db.close(); // Closing database connection
+
+		} 
+		catch (JSONException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	/*
 	 * Returns string array with all business names
 	 */
-	public String[] getAllBusinessNames()
+	public HashMap<String, String> getAllBusinessNames()
 	{
 		String selectQuery = "SELECT  * FROM " + TABLE_BUSINESS;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
-		int size = cursor.getCount();
-		String business[] = new String[size];
-		int i = 0;
+		HashMap<String, String> business = new HashMap<String, String>();
 		// Move to first row
 		cursor.moveToFirst();
 		do
 		{
 			if(cursor.getCount() > 0)
 			{
-				business[i] = cursor.getString(cursor.getColumnIndex(KEY_BUSINESS_NAME));
-				i++;
+				business.put(KEY_BUSINESS_NAME, cursor.getString(cursor.getColumnIndex(KEY_BUSINESS_NAME)));
+				business.put(KEY_BUSINESS_LOGO, cursor.getString(cursor.getColumnIndex(KEY_BUSINESS_LOGO)));
 			}
 			cursor.moveToNext();
 		}
@@ -218,11 +215,35 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
-		
+
 		cursor.moveToFirst();
 		if(cursor.getCount() > 0)
 		{
 			business.put("name", cursor.getString(cursor.getColumnIndex("name")));
+			business.put("logo", cursor.getString(cursor.getColumnIndex("logo")));
+			business.put("menu", cursor.getString(cursor.getColumnIndex("menu")));
+			business.put("events", cursor.getString(cursor.getColumnIndex("events")));
+		}
+		cursor.close();
+		db.close();
+		// return user
+		return business;
+	}
+
+
+	public HashMap<String, String> getBusinessByStartWithName(String name)
+	{
+		HashMap<String, String> business = new HashMap<String, String>();
+		String selectQuery = "SELECT  * FROM " + TABLE_BUSINESS + " WHERE name = '" + name + "%'";
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		cursor.moveToFirst();
+		if(cursor.getCount() > 0)
+		{
+			business.put("name", cursor.getString(cursor.getColumnIndex("name")));
+			business.put("logo", cursor.getString(cursor.getColumnIndex("logo")));
 			business.put("menu", cursor.getString(cursor.getColumnIndex("menu")));
 			business.put("events", cursor.getString(cursor.getColumnIndex("events")));
 		}
@@ -243,7 +264,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		db.delete(TABLE_LOGIN, null, null);
 		db.close();
 	}
-	
+
 	/**
 	 * Re crate database
 	 * Delete all tables and create it again

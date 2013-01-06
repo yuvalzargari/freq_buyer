@@ -16,7 +16,10 @@ public class BusinessFunction
 	private JSONParser jsonParser;
 	
 	private static String business_tag = "business";
+	
 	private static String getBusinessURL = "http://eliproj1.site88.net/getBusiness.php";
+	
+	private static String getCoupon_tag = "getCoupon";
 	
 	
 	// constructor
@@ -56,6 +59,8 @@ public class BusinessFunction
 		}
 		return false;
 	}
+	
+
 	
 	
 	

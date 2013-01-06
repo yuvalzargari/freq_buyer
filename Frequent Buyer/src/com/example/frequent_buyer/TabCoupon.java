@@ -1,12 +1,16 @@
 package com.example.frequent_buyer;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.TextView;
  
 
 public class TabCoupon extends Activity 
 {
+	
+	ProgressDialog dialog;
+	
 	TextView number_lest_to_benefit;
 	TextView text_of_benefit;
 	String email = staticParams.userEmail;
@@ -17,7 +21,7 @@ public class TabCoupon extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_coupon);
+        setContentView(R.layout.activity_coupon);
         number_lest_to_benefit = (TextView)findViewById(R.id.number_to_coupon_id);
         text_of_benefit = (TextView)findViewById(R.id.benefit_text_id);
        
@@ -39,6 +43,10 @@ public class TabCoupon extends Activity
 		benefit_name = "hamburger";
 		num_lest_to_benefit = 2;
 	}
+	
+	
+
+	
  
 }
 

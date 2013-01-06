@@ -37,7 +37,7 @@ public class Login extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-
+		
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.login_email);
 		inputPassword = (EditText) findViewById(R.id.login_password);
@@ -116,7 +116,6 @@ public class Login extends Activity
 		{	
 			String email = urls[0];
 			String password = urls[1];
-			UserFunctions userFunction = new UserFunctions();
 			JSONObject json = userFunction.loginUser(email, password);
 			return json;
 		}

@@ -83,6 +83,7 @@ public class UserFunctions
 	 * */
 	public boolean logoutUser(Context context)
 	{
+		staticParams.logoutUser();
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.resetLoginTable();
 		return true;

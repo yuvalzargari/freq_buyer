@@ -8,8 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -39,6 +39,8 @@
             android:name="com.example.frequent_buyer.BusinessMenu"
             android:label="@string/title_activity_business_menu" >
         </activity>
+        <activity android:name="com.example.frequent_buyer.ClientMenu" >
+        </activity>
         <activity
             android:name="com.example.frequent_buyer.OwnerMenu"
             android:label="@string/title_activity_owner_menu" >
@@ -48,7 +50,8 @@
         <activity android:name="com.example.frequent_buyer.TabEvents" />
         <activity
             android:name="com.example.frequent_buyer.BusinessList"
-            android:label="@string/title_activity_business_list" >
+            android:label="@string/title_activity_business_list"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 
