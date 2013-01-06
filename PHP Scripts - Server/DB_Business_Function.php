@@ -38,6 +38,23 @@ class DB_Business_Functions
 			return false;
 		}
 	}
+	
+	public function getBusinessIDByName($name)
+	{
+		$result = mysql_query("SELECT id FROM business WHERE name = '$name'");
+		// check for result
+		$no_of_rows = mysql_num_rows($result);
+		if ($no_of_rows > 0)
+		{
+			$result = mysql_fetch_array($result);
+			return $result;
+		}
+		else
+		{
+			// Business not found
+			return false;
+		}
+	}
 
 	public function getBusinessByName($name)
 	{
@@ -47,6 +64,7 @@ class DB_Business_Functions
 		if ($no_of_rows > 0)
 		{
 			$result = mysql_fetch_array($result);
+			return $result;
 		}
 		else
 		{

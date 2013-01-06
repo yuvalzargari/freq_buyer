@@ -68,6 +68,26 @@ class DB_Users_Functions
             return false;
         }
     }
+    
+    /**
+     * Get user id by email
+     */
+    public function getUserIDByEmail($email)
+    {
+    	$result = mysql_query("SELECT uid FROM users WHERE email = '$email'") or die(mysql_error());
+    	// check for result
+    	$no_of_rows = mysql_num_rows($result);
+    	if ($no_of_rows > 0)
+    	{
+    		$result = mysql_fetch_array($result);
+    		return $result;
+    	} 
+    	else
+    	{
+    		// user not found
+    		return false;
+    	}
+    }
  
     /**
      * Check user is existed or not
