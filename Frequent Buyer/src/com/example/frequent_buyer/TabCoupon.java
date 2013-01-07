@@ -57,8 +57,10 @@ public class TabCoupon extends Activity
 		} catch (InterruptedException e) {}
 		showJson(backFromServer);
 
-		//benefit_name = back_benefit_name;
-		//num_lest_to_benefit = back_num_lest_to_benefit;
+		try {
+			benefit_name = "hamburger" ;
+			num_lest_to_benefit = backFromServer.getInt("coupon");
+		} catch (JSONException e) {}
 	}
 	
 	private void changeScreen() 
