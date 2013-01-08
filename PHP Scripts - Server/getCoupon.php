@@ -11,36 +11,42 @@
  */
 if (isset($_POST['tag']) && $_POST['tag'] != '') 
 {
-	require_once '/home/a9208348/public_html/DB_Connect.php';
-        // connecting to database
-        $db = new DB_Connect();
-        $db->connect();
+    // get tag
+    $tag = $_POST['tag'];
+ 
+    // include db handler
+    require_once '/home/a9208348/public_html/DB_Users_Functions.php';
+    $db_users = new DB_Users_Functions();
+    require_once '/home/a9208348/public_html/DB_Business_Functions.php';
+    $db_business = new DB_Business_Functions();
+    require_once '/home/a9208348/public_html/DB_BusinessUsers_Functions.php';
+    $db_business_users = new DB_BusinessUsers_Functions();
+ 
+    // response Array
+    $response = array("tag" => $tag, "success" => 0, "error" => 0);
+ 
 
-    	$email = $_POST['email'];
-   	$business_name = $_POST['businessName'];	    
-        
-    	$result = mysql_query(
-				"SELECT bu.coupon, bu.Benefit
-				 FROM business_users bu
-				 INNER JOIN users u
-  				 ON u.uid = bu.user_id AND u.email = '$email'
-				 INNER JOIN business b
-				 ON b.id = bu.bussines_id 
-				 WHERE b.`business name` = '$business_name'"
-			) ;
-
-	// check for result   
-	$no_of_rows = mysql_num_rows($result);     
-	if ($no_of_rows > 0) 	
-	{           
-		$result = mysql_fetch_array($result);	
-		echo json_encode($result);    
-	}        
-	else 	
-	{         
-		// business user not found        
-		return false;       
-	}
+    // Get email and business name
+    $email = $_POST['email'];
+    $business_name = $_POST['businessName'];
+    
+    $coupon = $db_business_users->getcouponByUserEmailAndBusinessName($email, $business_name);
+    $couponID = $coupon["coupon"];
+ 
+    if ($coupon != false) 
+	{
+        // business user found
+		$response["success"] = 1;
+        $response["business_user"]["coupon"] = $coupon["coupon"];
+        echo json_encode($response);
+    } 
+	else 
+	{
+		// business user not found
+        // echo json with error = 1
+        $response["error"] = 1;
+		echo json_encode($response);
+    }
 } 
 else 
 {

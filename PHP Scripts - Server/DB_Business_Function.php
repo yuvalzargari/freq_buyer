@@ -72,6 +72,27 @@ class DB_Business_Functions
 			return false;
 		}
 	}
+	
+	public function getBusinessByOwnerEmail($ownerEmail)
+	{
+		$result = mysql_query("SELECT b.id, b.`business name` , b.logo, b.menu, b.events
+							   FROM business b
+							   INNER JOIN owners o ON b.id = o.bid
+							   INNER JOIN users u ON u.uid = o.uid
+							   WHERE u.email =  '$ownerEmail'");
+		// check for result
+		$no_of_rows = mysql_num_rows($result);
+		if ($no_of_rows > 0)
+		{
+			$result = mysql_fetch_array($result);
+			return $result;
+		}
+		else
+		{
+			// Business not found
+			return false;
+		}
+	}
 
 	public function getAllBusiness()
 	{
