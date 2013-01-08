@@ -16,10 +16,11 @@ public class BusinessFunction
 	private JSONParser jsonParser;
 	
 	private static String business_tag = "business";
+	private static String ownerBusiness_tag = "ownerBusiness";
 	
 	private static String getBusinessURL = "http://eliproj1.site88.net/getBusiness.php";
+	private static String getOwnersBusinessURL = "http://eliproj1.site88.net/getOwnersBusiness.php";
 	
-	private static String getCoupon_tag = "getCoupon";
 	
 	
 	// constructor
@@ -59,6 +60,17 @@ public class BusinessFunction
 		}
 		return false;
 	}
+	
+	public JSONObject getOwnersBusiness(String email)
+	{
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", ownerBusiness_tag));
+		params.add(new BasicNameValuePair("email", email));
+		JSONObject json = jsonParser.getJSONFromUrl(getOwnersBusinessURL, params);
+		return json;
+	}
+	
 	
 
 	

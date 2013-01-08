@@ -37,7 +37,7 @@ public class Login extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
+
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.login_email);
 		inputPassword = (EditText) findViewById(R.id.login_password);
@@ -68,7 +68,7 @@ public class Login extends Activity
 					loginErrorMsg.setText("");
 					new ConnectionAsyncTask().execute(email, password);
 				}
-				
+
 			}
 		});
 
@@ -85,7 +85,7 @@ public class Login extends Activity
 		});
 
 	}
-	
+
 	private boolean is_password_empty(String password)
 	{
 		if(password == null)
@@ -146,9 +146,18 @@ public class Login extends Activity
 						userFunction.logoutUser(getApplicationContext());
 						db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_TYPE));
 						staticParams.saveUserDetail(getApplicationContext());
-						
-						Intent activity = new Intent(Login.this, BusinessList.class);
-						startActivity(activity);
+
+						Intent activity;
+						if(staticParams.userType.equals("client"))
+						{
+							activity = new Intent(Login.this, BusinessList.class);
+							startActivity(activity);
+						}
+						else
+						{
+							activity = new Intent(Login.this, OwnerMenu.class);
+							startActivity(activity);
+						}
 
 
 						if(dialog.isShowing()) 

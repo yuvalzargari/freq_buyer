@@ -166,7 +166,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			values.put(KEY_BUSINESS_NAME, name); // Name
 			values.put(KEY_BUSINESS_LOGO, logo); // Logo
 			values.put(KEY_BUSINESS_MENU, menu); // Email
-			values.put(KEY_BUSINESS_EVENTS, events); // Type
+			values.put(KEY_BUSINESS_EVENTS, events); // Events
 
 			// Inserting Row
 			db.insert(TABLE_BUSINESS, null, values);

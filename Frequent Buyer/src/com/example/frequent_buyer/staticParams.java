@@ -11,6 +11,9 @@ public class staticParams
 	public static String userEmail = null;
 	public static String userType = null;
 	
+	public static String consumerName = null;
+	public static String consumerEmail = null;
+	
 	public static String businessName = null;
 	public static String businessLogo = null;
 	public static String businessMenu = null;
@@ -42,6 +45,37 @@ public class staticParams
 		businessLogo = businessDetails.get("logo");
 		businessMenu = businessDetails.get("menu");
 		businessEvents = businessDetails.get("events");
+	}
+	
+	public static void  saveBusinessDetail(String name, String logo, String menu, String events)
+	{
+		businessName = name;
+		businessLogo = logo;
+		businessMenu = menu;
+		businessEvents = events;
+	}
+	
+	public static void saveConsumerDetail(String name, String email)
+	{
+		consumerName = name;
+		consumerEmail = email;
+	}
+	
+	public static void clean()
+	{
+		userName = null;
+		userEmail = null;
+		userType = null;
+		
+		consumerName = null;
+		consumerEmail = null;
+		
+		businessName = null;
+		businessLogo = null;
+		businessMenu = null;
+		businessEvents = null;
+		
+		userCounterToBenefit = 0;
 	}
 	
 }

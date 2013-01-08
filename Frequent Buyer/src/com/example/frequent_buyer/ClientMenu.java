@@ -9,6 +9,8 @@ import android.widget.Button;
 public class ClientMenu extends Activity 
 {
 
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -20,16 +22,16 @@ public class ClientMenu extends Activity
 		 * */
 
 		// Dashboard Menu button
-		Button btn_menu = (Button) findViewById(R.id.btn_menu);
+		Button btn_menu = (Button) findViewById(R.id.btn_client_menu);
 
 		// Dashboard Messages button
-		Button btn_messages = (Button) findViewById(R.id.btn_messages);
+		Button btn_messages = (Button) findViewById(R.id.btn_client_messages);
 
 		// Dashboard Events button
-		Button btn_events = (Button) findViewById(R.id.btn_events);
+		Button btn_events = (Button) findViewById(R.id.btn_client_events);
 
 		// Dashboard Coupons button
-		Button btn_coupons = (Button) findViewById(R.id.btn_coupon);
+		Button btn_coupons = (Button) findViewById(R.id.btn_client_coupon);
 		
 		// Dashboard Logout button
 		Button btn_logout = (Button) findViewById(R.id.btn_logout);
@@ -45,7 +47,7 @@ public class ClientMenu extends Activity
 			public void onClick(View view) 
 			{
 				// Launching Menu Screen
-				Intent activity = new Intent(getApplicationContext(), TabMenu.class);
+				Intent activity = new Intent(ClientMenu.this, TabMenu.class);
 				startActivity(activity);
 			}
 		});
@@ -70,7 +72,7 @@ public class ClientMenu extends Activity
 			public void onClick(View view) 
 			{
 				// Launching Events Screen
-				Intent activity = new Intent(getApplicationContext(), TabEvents.class);
+				Intent activity = new Intent(ClientMenu.this, TabEvents.class);
 				startActivity(activity);
 			}
 		});
@@ -82,7 +84,7 @@ public class ClientMenu extends Activity
 			public void onClick(View view) 
 			{
 				// Launching Coupon Screen
-				Intent activity = new Intent(getApplicationContext(), TabCoupon.class);
+				Intent activity = new Intent(ClientMenu.this, TabCoupon.class);
 				startActivity(activity);
 			}
 		});
@@ -94,9 +96,10 @@ public class ClientMenu extends Activity
 			public void onClick(View view) 
 			{
 				// Logout and launch the login screen
+				staticParams.clean();
 				UserFunctions userFunctions = new UserFunctions();
 				userFunctions.logoutUser(getApplicationContext());
-				Intent activity = new Intent(getApplicationContext(), Login.class);
+				Intent activity = new Intent(ClientMenu.this, Login.class);
 				startActivity(activity);
 				finish();
 			}
@@ -111,4 +114,6 @@ public class ClientMenu extends Activity
 		if(userFunction.isUserLoggedIn(getApplicationContext()) == false)
 			finish();
 	}
+	
+	
 }

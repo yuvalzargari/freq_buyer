@@ -1,13 +1,16 @@
 package com.example.frequent_buyer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
  
 
 public class TabMenu extends Activity 
 {
+	
 	
     
     public void onCreate(Bundle savedInstanceState) 
@@ -15,6 +18,8 @@ public class TabMenu extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         
+        // Dashboard Logout button
+        Button btn_logout = (Button) findViewById(R.id.btn_logout);
  
         // Loader image - will be shown before loading image
         int loader = R.drawable.loader;
@@ -23,7 +28,7 @@ public class TabMenu extends Activity
         ImageView image = (ImageView) findViewById(R.id.image);
  
         // Image url
-        String image_url = staticParams.businessEvents;
+        String image_url = staticParams.businessMenu;
  
         // ImageLoader class instance
         ImageLoader imgLoader = new ImageLoader(getApplicationContext());
@@ -34,6 +39,21 @@ public class TabMenu extends Activity
         // loader - loader image, will be displayed before getting image
         // image - ImageView
         imgLoader.DisplayImage(image_url, loader, image);
+        
+		// Listening to Logout button click
+		btn_logout.setOnClickListener(new View.OnClickListener() 
+		{
+
+			public void onClick(View view) 
+			{
+				// Logout and launch the login screen
+				UserFunctions userFunctions = new UserFunctions();
+				userFunctions.logoutUser(getApplicationContext());
+				Intent activity = new Intent(getApplicationContext(), Login.class);
+				startActivity(activity);
+				finish();
+			}
+		});
     }
 }
 

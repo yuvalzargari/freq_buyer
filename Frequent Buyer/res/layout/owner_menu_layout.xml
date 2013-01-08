@@ -8,7 +8,7 @@
         <include layout="@layout/actionbar_layout"/>
  
         <!--  Include Fragmented dashboard -->
-        <include layout="@layout/client_fragment_layout"/>   
+        <include layout="@layout/owner_fragment_layout"/>   
  
  
 </LinearLayout>

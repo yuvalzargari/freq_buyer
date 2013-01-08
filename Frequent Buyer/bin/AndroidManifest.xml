@@ -48,6 +48,7 @@
         <activity android:name="com.example.frequent_buyer.TabCoupon" />
         <activity android:name="com.example.frequent_buyer.TabMenu" />
         <activity android:name="com.example.frequent_buyer.TabEvents" />
+        <activity android:name="com.example.frequent_buyer.ClientList" />
         <activity
             android:name="com.example.frequent_buyer.BusinessList"
             android:label="@string/title_activity_business_list"

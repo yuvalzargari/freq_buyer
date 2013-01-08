@@ -38,18 +38,24 @@ public class LoadingScreen extends Activity
 						 */
 						staticParams.saveUserDetail(getApplicationContext());
 						Intent activity;
-						activity = new Intent(LoadingScreen.this, BusinessList.class);
-
-						// Open the activity
-						startActivity(activity);
+						if(staticParams.userType.equals("client"))
+						{
+							activity = new Intent(LoadingScreen.this, BusinessList.class);
+							startActivity(activity);
+						}
+						else
+						{
+							activity = new Intent(LoadingScreen.this, OwnerMenu.class);
+							startActivity(activity);
+						}
 						// Close Loading Screen
-						finish();	
+						LoadingScreen.this.finish();	
 					}
 					else
 					{
 						Intent toOpen = new Intent(LoadingScreen.this, Login.class); 
 						startActivity(toOpen);
-						finish();
+						LoadingScreen.this.finish();
 					}
 				}
 				catch(InterruptedException e)
