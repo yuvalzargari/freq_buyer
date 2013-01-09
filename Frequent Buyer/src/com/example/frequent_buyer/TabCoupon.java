@@ -3,8 +3,11 @@ package com.example.frequent_buyer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.string;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -28,7 +31,7 @@ public class TabCoupon extends Activity
 		setContentView(R.layout.activity_coupon);
 		number_lest_to_benefit = (TextView)findViewById(R.id.number_to_coupon_id);
 		text_of_benefit = (TextView)findViewById(R.id.benefit_text_id);
-		
+		showstatic(email+" "+business);
 		// get from server
 		get_number_lest_to_benefit(email, business);
 
@@ -56,7 +59,7 @@ public class TabCoupon extends Activity
 		} catch (InterruptedException e) {}
 		//WaitView.dismiss();
 		try {
-			benefit_name = 		backFromServer.getString("Benefit") ;
+			benefit_name        = backFromServer.getString("Benefit") ;
 			num_lest_to_benefit = backFromServer.getInt("coupon");
 			// if it return false or junk there is no line with username in business_users
 		} catch (JSONException e) {}
@@ -83,6 +86,19 @@ public class TabCoupon extends Activity
 //		});
 //		alertbox2.show();		
 //	}
+	
+	
+	private void showstatic(String show) 
+	{
+		AlertDialog.Builder alertbox2 = new AlertDialog.Builder(this);
+		alertbox2.setTitle("static param ok?");
+		alertbox2.setMessage(show);
+		alertbox2.setPositiveButton("ok", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface arg0, int arg1) {}
+		});
+		alertbox2.show();		
+	}
 
 }
 

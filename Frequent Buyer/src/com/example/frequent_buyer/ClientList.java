@@ -44,7 +44,6 @@ public class ClientList extends Activity
 
 		activity = this;
 		list = (ListView) findViewById(R.id.list);
-		
 
 		String email = staticParams.userEmail;
 		new ConnectionAsyncTask().execute(email);
@@ -129,8 +128,7 @@ public class ClientList extends Activity
 									int position, long id)
 							{
 								staticParams.saveConsumerDetail(consumerName[position], consumerEmail[position]);
-								Intent TabCoupon = new Intent(ClientList.this, TabCoupon.class);
-								startActivity(TabCoupon);
+								startActivity(new Intent(ClientList.this, couponChanger.class));
 								finish();
 							}
 						});

@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BusinessList extends Activity 
 {
@@ -231,6 +232,7 @@ public class BusinessList extends Activity
 							{
 								// When clicked, open the business activity
 								String name = ((TextView) view.findViewById(R.id.txtBusinessName)).getText().toString();
+								//Toast.makeText(getApplicationContext(),name ,Toast.LENGTH_LONG).show();
 								staticParams.saveBusinessDetail(getApplicationContext(), name);
 								Intent activity;
 								if(staticParams.userType.equals("client") == true)

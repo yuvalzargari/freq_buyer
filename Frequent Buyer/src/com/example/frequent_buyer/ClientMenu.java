@@ -8,8 +8,6 @@ import android.widget.Button;
 
 public class ClientMenu extends Activity 
 {
-
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -83,6 +81,7 @@ public class ClientMenu extends Activity
 
 			public void onClick(View view) 
 			{
+				
 				// Launching Coupon Screen
 				Intent activity = new Intent(ClientMenu.this, TabCoupon.class);
 				startActivity(activity);

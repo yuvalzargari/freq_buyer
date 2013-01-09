@@ -39,12 +39,14 @@ public class staticParams
 	
 	public static void  saveBusinessDetail(Context context, String name)
 	{
+		
 		DatabaseHandler db = new DatabaseHandler(context);
 		HashMap<String, String> businessDetails = db.getBusinessByName(name);
 		businessName = businessDetails.get("name");
 		businessLogo = businessDetails.get("logo");
 		businessMenu = businessDetails.get("menu");
 		businessEvents = businessDetails.get("events");
+		businessName = name; // if you delete this is not save the business name
 	}
 	
 	public static void  saveBusinessDetail(String name, String logo, String menu, String events)
