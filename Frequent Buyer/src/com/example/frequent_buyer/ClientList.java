@@ -166,7 +166,7 @@ public class ClientList extends Activity
 									int position, long id)
 							{
 								staticParams.saveConsumerDetail(consumerName[position], consumerEmail[position]);
-								Intent TabCoupon = new Intent(ClientList.this, TabCoupon.class);
+								Intent TabCoupon = new Intent(ClientList.this, CouponChanger.class);
 								startActivity(TabCoupon);
 								finish();
 							}
