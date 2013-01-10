@@ -17,9 +17,12 @@ public class BusinessFunction
 	
 	private static String business_tag = "business";
 	private static String ownerBusiness_tag = "ownerBusiness";
+	private static String updateEvents_tag = "updateEvents";
 	
 	private static String getBusinessURL = "http://eliproj1.site88.net/getBusiness.php";
 	private static String getOwnersBusinessURL = "http://eliproj1.site88.net/getOwnersBusiness.php";
+	private static String changeBusinessEventsURL = "http://eliproj1.site88.net/updateEvents.php";
+	private static String changeMenuEventsURL = "http://eliproj1.site88.net/updateMenu.php";
 	
 	
 	
@@ -68,6 +71,28 @@ public class BusinessFunction
 		params.add(new BasicNameValuePair("tag", ownerBusiness_tag));
 		params.add(new BasicNameValuePair("email", email));
 		JSONObject json = jsonParser.getJSONFromUrl(getOwnersBusinessURL, params);
+		return json;
+	}
+	
+	public JSONObject changeEvents(String Events, String name)
+	{
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", updateEvents_tag));
+		params.add(new BasicNameValuePair("name", name));
+		params.add(new BasicNameValuePair("events", Events));
+		JSONObject json = jsonParser.getJSONFromUrl(changeBusinessEventsURL, params);
+		return json;
+	}
+	
+	public JSONObject changeMenu(String menu, String name)
+	{
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", updateEvents_tag));
+		params.add(new BasicNameValuePair("name", name));
+		params.add(new BasicNameValuePair("menu", menu));
+		JSONObject json = jsonParser.getJSONFromUrl(changeMenuEventsURL, params);
 		return json;
 	}
 	

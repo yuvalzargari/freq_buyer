@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class OwnerMenu extends Activity 
 {
@@ -66,6 +65,30 @@ public class OwnerMenu extends Activity
 				startActivity(activity);
 			}
 		});
+		
+		// Listening to Menu button click
+		btn_menu.setOnClickListener(new View.OnClickListener() 
+		{
+
+			public void onClick(View view) 
+			{
+				// Launching Menu Screen
+				Intent activity = new Intent(OwnerMenu.this, TabMenu.class);
+				startActivity(activity);
+			}
+		});
+
+		// Listening to Events button click
+		btn_events.setOnClickListener(new View.OnClickListener() 
+		{
+
+			public void onClick(View view) 
+			{
+				// Launching Coupon Screen
+				Intent activity = new Intent(OwnerMenu.this, TabEvents.class);
+				startActivity(activity);
+			}
+		});
 
 		// Listening to Logout button click
 		btn_logout.setOnClickListener(new View.OnClickListener() 
@@ -85,7 +108,7 @@ public class OwnerMenu extends Activity
 				finish();
 			}
 		});
-		
+
 		/*
 		 * register receiver to listen to logout click
 		 */
@@ -97,15 +120,14 @@ public class OwnerMenu extends Activity
 				finish();
 			}
 		};
-	    IntentFilter intentFilter = new IntentFilter();
-	    intentFilter.addAction("com.package.ACTION_LOGOUT");
-	    registerReceiver(logout, intentFilter);
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction("com.package.ACTION_LOGOUT");
+		registerReceiver(logout, intentFilter);
 
 
 		new ConnectionAsyncTask().execute();
-
 	}
-	
+
 	@Override
 	protected void onDestroy() 
 	{
@@ -188,7 +210,6 @@ public class OwnerMenu extends Activity
 						String businessEvents = json_business.getString(KEY_EVENTS);
 
 						staticParams.saveBusinessDetail(businessName, businessLogo, businessMenu, businessEvents);
-						Toast.makeText(getApplicationContext(), "business name - " + staticParams.businessName, Toast.LENGTH_SHORT).show();
 						if(dialog.isShowing()) 
 						{
 							dialog.dismiss();

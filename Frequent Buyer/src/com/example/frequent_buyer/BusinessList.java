@@ -30,11 +30,12 @@ import android.widget.TextView;
 public class BusinessList extends Activity 
 {
 
-	public static final String KEY_BUSINESS_NAME = "name";
-	public static final String KEY_BUSINESS_LOGO = "logo";
+
 
 	// JSON Response node names
-	private static String KEY_SUCCESS = "success";
+	private static String KEY_SUCCESS = "success";	
+	public static final String KEY_BUSINESS_NAME = "name";
+	public static final String KEY_BUSINESS_LOGO = "logo";
 	
 	BroadcastReceiver logout;
 

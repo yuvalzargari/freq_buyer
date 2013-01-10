@@ -41,10 +41,18 @@ public class staticParams
 	{
 		DatabaseHandler db = new DatabaseHandler(context);
 		HashMap<String, String> businessDetails = db.getBusinessByName(name);
-		businessName = businessDetails.get("name");
+		businessName = name;
 		businessLogo = businessDetails.get("logo");
 		businessMenu = businessDetails.get("menu");
 		businessEvents = businessDetails.get("events");
+	}
+	
+	public static boolean isBusinessSaved(Context context)
+	{
+		DatabaseHandler db = new DatabaseHandler(context);
+		if(db.getRowCountBusiness() > 0)
+			return true;
+		return false;
 	}
 	
 	public static void  saveBusinessDetail(String name, String logo, String menu, String events)

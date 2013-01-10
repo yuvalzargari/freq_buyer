@@ -179,6 +179,35 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateBusiness(JSONObject json_business)
+	{
+		try 
+		{
+			String name = json_business.getString(KEY_BUSINESS_NAME);
+			String logo = json_business.getString(KEY_BUSINESS_LOGO);
+			String menu = json_business.getString(KEY_BUSINESS_MENU);
+			String events = json_business.getString(KEY_BUSINESS_EVENTS);
+
+			SQLiteDatabase db = this.getWritableDatabase();
+
+			ContentValues values = new ContentValues();
+			values.put(KEY_BUSINESS_NAME, name); // Name
+			values.put(KEY_BUSINESS_LOGO, logo); // Logo
+			values.put(KEY_BUSINESS_MENU, menu); // Email
+			values.put(KEY_BUSINESS_EVENTS, events); // Events
+
+			// Inserting Row
+			db.update(TABLE_BUSINESS, values, KEY_BUSINESS_NAME + " = '" + name + "'", null);
+			db.close(); // Closing database connection
+
+		} 
+		catch (JSONException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/*
 	 * Returns string array with all business names
