@@ -1,24 +1,15 @@
 package com.example.frequent_buyer;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -74,7 +65,7 @@ public class CouponChanger extends Activity
 		List<NameValuePair> params;
 		String url = "http://eliproj1.site88.net/public_html/subtractCuopon.php";
 		params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("subtractCuopon", "setCoupon"));
+		params.add(new BasicNameValuePair("tag", "subtractCuopon"));
 		params.add(new BasicNameValuePair("email", email));	
 		sendAndResive(url,params);
 	}
@@ -104,6 +95,9 @@ public class CouponChanger extends Activity
 					HttpClient httpClient = new DefaultHttpClient();
 					httpPost.setEntity(new UrlEncodedFormEntity(params));
 					HttpResponse httpResponse = httpClient.execute(httpPost);
+//					JSONParser j= new JSONParser();
+//					JSONObject k= j.getJSONFromUrl(url, params);
+//					Log.e("my app", k.toString(1));
 				}
 				catch (Exception e) 
 				{
