@@ -94,16 +94,24 @@ public class CouponChanger extends Activity
 
 	private void sendAndResive(final String url, final List<NameValuePair> params) 
 	{
-		try
+		Runnable r= new Runnable() 
 		{
-			HttpPost httpPost = new HttpPost(url);
-			HttpClient httpClient = new DefaultHttpClient();
-			httpPost.setEntity(new UrlEncodedFormEntity(params));
-			HttpResponse httpResponse = httpClient.execute(httpPost);
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
+			public void run() 
+			{
+				try
+				{
+					HttpPost httpPost = new HttpPost(url);
+					HttpClient httpClient = new DefaultHttpClient();
+					httpPost.setEntity(new UrlEncodedFormEntity(params));
+					HttpResponse httpResponse = httpClient.execute(httpPost);
+				}
+				catch (Exception e) 
+				{
+					Log.e("my app", e.toString());
+				}
+			}
+		} ;
+		Thread t = new Thread(r);
+		t.start();
 	}
 }
