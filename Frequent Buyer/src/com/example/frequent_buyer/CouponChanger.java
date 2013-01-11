@@ -1,17 +1,25 @@
 package com.example.frequent_buyer;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -56,6 +64,8 @@ public class CouponChanger extends Activity
 		subtract.setOnClickListener(new View.OnClickListener() 
 		{
 			public void onClick(View v) {
+				businessname = staticParams.businessName;
+				email = staticParams.consumerEmail;
 				subTractOne();
 			}
 
@@ -67,7 +77,7 @@ public class CouponChanger extends Activity
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", "subtractCuopon"));
 		params.add(new BasicNameValuePair("email", email));	
-		sendAndResive(url,params);
+		sendAndResive(url,params , getApplicationContext());
 	}
 	private void setDataonserver() 
 	{
@@ -79,22 +89,44 @@ public class CouponChanger extends Activity
 		params.add(new BasicNameValuePair("businessName", businessname));
 		params.add(new BasicNameValuePair("setCoupon", NumToCopon.toString()));
 		params.add(new BasicNameValuePair("benefit", Benefit));
-		Toast.makeText(getApplicationContext(), email+" "+businessname+" "+NumToCopon.toString()+" "+Benefit, Toast.LENGTH_LONG).show();
-		sendAndResive(url,params);
+		
+		sendAndResive(url,params,getApplicationContext());
 	}
 
-	private void sendAndResive(final String url, final List<NameValuePair> params) 
+	private void sendAndResive(final String url, final List<NameValuePair> params, final Context context) 
 	{
-		Runnable r= new Runnable() 
+		Toast.makeText(context, email, Toast.LENGTH_LONG).show();
+		Thread t = new Thread()
 		{
 			public void run() 
 			{
 				try
 				{
+					Log.e("my app 1",url );
 					HttpPost httpPost = new HttpPost(url);
+					Log.e("my app 2",email);
 					HttpClient httpClient = new DefaultHttpClient();
 					httpPost.setEntity(new UrlEncodedFormEntity(params));
+					Log.e("my app 3",params.toString());
 					HttpResponse httpResponse = httpClient.execute(httpPost);
+					Log.e("my app 4",httpResponse.toString());
+					StatusLine statusLine = httpResponse.getStatusLine();
+					if(statusLine.getStatusCode() == HttpURLConnection.HTTP_OK)
+					{
+						InputStream inps = httpResponse.getEntity().getContent();
+						InputStreamReader inp = new InputStreamReader(inps, Charset.forName("UTF-8"));
+						BufferedReader rd = new BufferedReader(inp);
+						StringBuilder stringBuilder = new StringBuilder();
+						String bufferedStrChunk = null;
+						while ((bufferedStrChunk = rd.readLine()) != null) 
+						{
+							stringBuilder.append(bufferedStrChunk);
+						}
+						result = stringBuilder.toString();
+					}
+					Log.e("my app 5",result.toString());
+					
+					
 //					JSONParser j= new JSONParser();
 //					JSONObject k= j.getJSONFromUrl(url, params);
 //					Log.e("my app", k.toString(1));
@@ -105,7 +137,11 @@ public class CouponChanger extends Activity
 				}
 			}
 		} ;
-		Thread t = new Thread(r);
 		t.start();
+		try {
+			t.join();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
