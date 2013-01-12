@@ -13,6 +13,8 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
 {
 	// get tag
 	$tag = $_POST['tag'];
+	$name = $_POST['name'];
+	$events = $_POST['events'];
 
 	// include db handler
 	require_once '/home/a9208348/public_html/DB_Business_Function.php';
@@ -25,22 +27,16 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
 	// Request type is check Login
 
 	// check for business
-	$business = $db->getAllBusiness();
+	$business = $db->updateEvents($name, $events);
 	if($business != false)
 	{
 		// business found
 		// echo json with success = 1
 		$response["success"] = 1;
-		$size = count($business);
-		$i=0;
-		while($i < $size)
-		{
-			$response[business][$i]["name"] = $business[$i]["name"];
-			$response[business][$i]["logo"] = $business[$i]["logo"];
-			$response[business][$i]["menu"] = $business[$i]["menu"];
-			$response[business][$i]["events"] = $business[$i]["events"];
-			$i++;
-		}
+		$response[business]["name"] = $business["name"];
+		$response[business]["logo"] = $business["logo"];
+		$response[business]["menu"] = $business["menu"];
+		$response[business]["events"] = $business["events"];
 		echo json_encode($response);
 	}
 	else
@@ -48,7 +44,7 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
 		// business not found
 		// echo json with error = 1
 		$response["error"] = 1;
-		$response["error_msg"] = "No business found!";
+		$response["error_msg"] = "Error updating business";
 		echo json_encode($response);
 	}
 }

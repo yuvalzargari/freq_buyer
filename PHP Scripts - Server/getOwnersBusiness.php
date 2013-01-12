@@ -25,6 +25,8 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
 	$response = array("tag" => $tag, "success" => 0, "error" => 0);
 
 
+	// Request type is check Login
+
 	// check for business
 	$business = $db->getBusinessByOwnerEmail($email);
 	if($business != false)
@@ -32,7 +34,7 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
 		// business found
 		// echo json with success = 1
 		$response["success"] = 1;
-		$response["business"]["name"] = $business["name"];
+		$response["business"]["name"] = $business["business name"];
 		$response["business"]["logo"] = $business["logo"];
 		$response["business"]["menu"] = $business["menu"];
 		$response["business"]["events"] = $business["events"];

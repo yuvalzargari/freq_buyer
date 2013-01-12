@@ -23,7 +23,7 @@ class DB_Business_Functions
 
 	public function storeBusiness($name, $menu, $events)
 	{
-		$result = mysql_query("INSERT INTO business(business name, menu, events) VALUES('$name', '$menu', '$events')");
+		$result = mysql_query("INSERT INTO business(`business name`, menu, events) VALUES('$name', '$menu', '$events')");
 		// check for successful store
 		if($result)
 		{
@@ -38,10 +38,10 @@ class DB_Business_Functions
 			return false;
 		}
 	}
-	
+
 	public function getBusinessIDByName($name)
 	{
-		$result = mysql_query("SELECT id FROM business WHERE name = '$name'");
+		$result = mysql_query("SELECT id FROM business WHERE `business name` = '$name'");
 		// check for result
 		$no_of_rows = mysql_num_rows($result);
 		if ($no_of_rows > 0)
@@ -58,7 +58,7 @@ class DB_Business_Functions
 
 	public function getBusinessByName($name)
 	{
-		$result = mysql_query("SELECT * FROM business WHERE name = '$name'");
+		$result = mysql_query("SELECT * FROM business WHERE `business name` = '$name'");
 		// check for result
 		$no_of_rows = mysql_num_rows($result);
 		if ($no_of_rows > 0)
@@ -72,14 +72,14 @@ class DB_Business_Functions
 			return false;
 		}
 	}
-	
+
 	public function getBusinessByOwnerEmail($ownerEmail)
 	{
 		$result = mysql_query("SELECT b.id, b.`business name` , b.logo, b.menu, b.events
-							   FROM business b
-							   INNER JOIN owners o ON b.id = o.bid
-							   INNER JOIN users u ON u.uid = o.uid
-							   WHERE u.email =  '$ownerEmail'");
+				FROM business b
+				INNER JOIN owners o ON b.id = o.bid
+				INNER JOIN users u ON u.uid = o.uid
+				WHERE u.email =  '$ownerEmail'");
 		// check for result
 		$no_of_rows = mysql_num_rows($result);
 		if ($no_of_rows > 0)
@@ -98,22 +98,22 @@ class DB_Business_Functions
 	{
 		$result = mysql_query("SELECT * FROM business") or die(mysql_error());
 		// check for result
-		if (!$result) 
+		if (!$result)
 		{
 			return false;
 		}
-		 
-		if (mysql_num_rows($result) == 0) 
+			
+		if (mysql_num_rows($result) == 0)
 		{
 			return false;
 		}
-		
+
 		// Copy each row into data and return data
-		
+
 		$data = array();
 		$i=0;
 		while ($row = mysql_fetch_array($result))
-		 {
+		{
 			$data[$i]["name"] = $row[1];
 			$data[$i]["logo"] = $row[2];
 			$data[$i]["menu"] = $row[3];
@@ -125,7 +125,7 @@ class DB_Business_Functions
 
 	public function isBusinessExist($name)
 	{
-		$result = mysql_query("SELECT * FROM business WHERE name = '$name'");
+		$result = mysql_query("SELECT * FROM business WHERE `business name` = '$name'");
 		// check for result
 		$no_of_rows = mysql_num_rows($result);
 		if ($no_of_rows > 0)
@@ -138,6 +138,51 @@ class DB_Business_Functions
 			return false;
 		}
 	}
+
+	public function updateEvents($name, $events)
+	{
+		$business = $this->getBusinessIDByName($name);
+		$id = $business["id"];
+		$result = mysql_query("UPDATE business
+				SET events='$events'
+				where id='$id'");
+		// check for successful update
+		if($result)
+		{
+			$result = mysql_query("SELECT `business name` AS name, logo, menu, events
+					FROM business
+					WHERE id = '$id'");
+			// return business details
+			return mysql_fetch_array($result);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function updateMenu($name, $menu)
+	{
+		$business = $this->getBusinessIDByName($name);
+		$id = $business["id"];
+		$result = mysql_query("UPDATE business
+				SET menu='$menu'
+				where id='$id'");
+		// check for successful update
+		if($result)
+		{
+			$result = mysql_query("SELECT `business name` AS name, logo, menu, events
+					FROM business
+					WHERE id = '$id'");
+			// return business details
+			return mysql_fetch_array($result);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 
 }
 

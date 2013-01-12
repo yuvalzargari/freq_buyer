@@ -15,12 +15,8 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
     $tag = $_POST['tag'];
  
     // include db handler
-    require_once '/home/a9208348/public_html/DB_Users_Functions.php';
-    $db_users = new DB_Users_Functions();
-    require_once '/home/a9208348/public_html/DB_Business_Functions.php';
-    $db_business = new DB_Business_Functions();
-    require_once '/home/a9208348/public_html/DB_BusinessUsers_Functions.php';
-    $db_business_users = new DB_BusinessUsers_Functions();
+    require_once '/home/a9208348/public_html/DB_BusinessUsers_Function.php';
+    $db_BusinessUsers_Functions = new DB_BusinessUsers_Functions();
  
     // response Array
     $response = array("tag" => $tag, "success" => 0, "error" => 0);
@@ -30,14 +26,14 @@ if (isset($_POST['tag']) && $_POST['tag'] != '')
     $email = $_POST['email'];
     $business_name = $_POST['businessName'];
     
-    $coupon = $db_business_users->getcouponByUserEmailAndBusinessName($email, $business_name);
-    $couponID = $coupon["coupon"];
+    $coupon = $db_BusinessUsers_Functions->getcouponAndBenefitByUserEmailAndBusinessName($email, $business_name);
  
     if ($coupon != false) 
 	{
         // business user found
 		$response["success"] = 1;
         $response["business_user"]["coupon"] = $coupon["coupon"];
+        $response["business_user"]["Benefit"] = $coupon["Benefit"];
         echo json_encode($response);
     } 
 	else 

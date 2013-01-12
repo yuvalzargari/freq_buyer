@@ -108,6 +108,33 @@ class DB_BusinessUsers_Functions
 		return $data;
     }
     
+    public function substractCoupon($email, $business_name)
+    {	
+    	$bid = mysql_query("SELECT id FROM business WHERE `business name` = '$business_name'");
+    	$bid = mysql_fetch_array($bid);
+    	$bid = $bid["id"];
+    	
+    	$uid = mysql_query("SELECT uid FROM users WHERE email = '$email'");
+    	$uid = mysql_fetch_array($uid);
+    	$uid = $uid["uid"];
+    	
+    	$result = mysql_query("UPDATE business_users 
+    						   SET coupon=coupon-1 
+    						   WHERE user_id='$uid' AND bussines_id = '$bid'");
+    	// check for successful update
+    	if($result)
+    	{
+    		$result = mysql_query("SELECT coupon, Benefit
+    							   FROM business_users
+    							   WHERE user_id = '$uid' AND bussines_id = '$bid'");
+    		// return business user updated details
+    		return mysql_fetch_array($result);
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
     
  
 }
