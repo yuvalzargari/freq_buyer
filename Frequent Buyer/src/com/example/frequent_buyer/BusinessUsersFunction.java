@@ -7,6 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.R.string;
+
 public class BusinessUsersFunction 
 {
 	
@@ -14,8 +16,9 @@ public class BusinessUsersFunction
 	
 	private static String getCouponURL = "http://eliproj1.site88.net/getCoupon.php";
 	private static String getConsumerClubListURL = "http://eliproj1.site88.net/getConsumerClubList.php";
+	private static String setcouponURL = "http://eliproj1.site88.net/setCuopon.php";
 	private static String substractCouponURL = "http://eliproj1.site88.net/subtractCuopon.php";
-	
+	private static String setCuopon_tag = "setCuopon";
 	private static String getCoupon_tag = "getCoupon";
 	private static String getConsumerClubList_tag = "getConsumerClubList";
 	private static String substractCoupon_tag = "substractCoupon";
@@ -64,6 +67,18 @@ public class BusinessUsersFunction
 		params.add(new BasicNameValuePair("email", email));	
 		params.add(new BasicNameValuePair("business_name", businessName));
 		JSONObject json = jsonParser.getJSONFromUrl(substractCouponURL, params);
+		return json;
+	}
+	
+	public JSONObject setCuopon(String email, String businessName,String NumToCopon, String Benefit)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", setCuopon_tag));
+		params.add(new BasicNameValuePair("email", email));
+		params.add(new BasicNameValuePair("businessName", businessName));
+		params.add(new BasicNameValuePair("setCoupon", NumToCopon));
+		params.add(new BasicNameValuePair("benefit", Benefit));
+		JSONObject json = jsonParser.getJSONFromUrl(setcouponURL , params);
 		return json;
 	}
 
