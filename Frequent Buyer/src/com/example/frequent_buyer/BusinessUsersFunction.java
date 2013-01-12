@@ -14,9 +14,11 @@ public class BusinessUsersFunction
 	
 	private static String getCouponURL = "http://eliproj1.site88.net/getCoupon.php";
 	private static String getConsumerClubListURL = "http://eliproj1.site88.net/getConsumerClubList.php";
+	private static String substractCouponURL = "http://eliproj1.site88.net/subtractCuopon.php";
 	
 	private static String getCoupon_tag = "getCoupon";
 	private static String getConsumerClubList_tag = "getConsumerClubList";
+	private static String substractCoupon_tag = "substractCoupon";
 	
 	
 	public BusinessUsersFunction() 
@@ -48,6 +50,20 @@ public class BusinessUsersFunction
 		params.add(new BasicNameValuePair("tag", getConsumerClubList_tag));
 		params.add(new BasicNameValuePair("email", email));
 		JSONObject json = jsonParser.getJSONFromUrl(getConsumerClubListURL, params);
+		return json;
+	}
+	
+	/*
+	 * Update consumer coupon
+	 */
+	public JSONObject substractCoupon(String email, String businessName)
+	{
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", substractCoupon_tag));
+		params.add(new BasicNameValuePair("email", email));	
+		params.add(new BasicNameValuePair("business_name", businessName));
+		JSONObject json = jsonParser.getJSONFromUrl(substractCouponURL, params);
 		return json;
 	}
 
