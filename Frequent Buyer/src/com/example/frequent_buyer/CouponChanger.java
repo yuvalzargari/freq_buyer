@@ -52,17 +52,11 @@ public class CouponChanger extends Activity
 				t1.start();
 				try {
 					t1.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				try {
 					subtract.setEnabled(true);
-					Toast.makeText(getApplicationContext(),"you set coupon to "+
-							json.getString("0").toString()+" and set benefit to "+json.getString("1").toString(),
-							Toast.LENGTH_LONG).show();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+	Toast.makeText(getApplicationContext(),"you set coupon to "+
+		json.getString("0").toString()+" and set benefit to "+json.getString("1").toString(),
+					Toast.LENGTH_LONG).show();
+				}catch(Exception e1){}				}
 			}
 		});
 
@@ -80,15 +74,8 @@ public class CouponChanger extends Activity
 				t2.start();
 				try {
 					t2.join();
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-				
-				try {
 					a = json.getInt("coupon");
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				} catch (Exception e) {}
 				if (a>0) {
 					Toast.makeText(getApplicationContext(),
 							"Number of coupon left to " + email + " is " +a,
